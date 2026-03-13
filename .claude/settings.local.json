@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(npm run:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "mcp__mcp-registry__search_mcp_registry",
+      "mcp__mcp-registry__suggest_connectors",
+      "Bash(npx netlify:*)",
+      "Bash(curl -s -H \"Content-Type: application/json\" -X POST \"https://api.netlify.com/api/v1/sites/176acc99-89c2-42c0-b8c9-ff38f27844f7/builds\")"
     ]
   }
 }

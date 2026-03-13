@@ -1,4 +1,8 @@
 import { useMemo, useState } from 'react'
+import heroData from './src/data/hero.json'
+import feedData from './src/data/feed.json'
+import eventsData from './src/data/events.json'
+import testimonialsData from './src/data/testimonials.json'
 
 const featureCards = [
   {
@@ -18,65 +22,8 @@ const featureCards = [
   },
 ]
 
-const feed = [
-  {
-    category: 'Wellness',
-    title: 'Lazy Fit Girl Smoothies That Still Get the Job Done',
-    excerpt: 'Quick blends for busy mornings, post-class recovery, and low-effort wellness days.',
-    image: 'https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    category: 'Culture',
-    title: 'Matcha, Pilates, Recovery Clubs, and the New Fit-Girl Social Life',
-    excerpt: 'The social layer behind modern wellness and why community is becoming the real status symbol.',
-    image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    category: 'Fitness',
-    title: 'This or That: Pilates Princess, Studio Loyalist, or Outdoor Sweat Girl',
-    excerpt: 'Interactive editorial that lets readers see themselves in the brand and share it with friends.',
-    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    category: 'Events',
-    title: 'Fit Girl Walk Club: Coffee First, Steps Second, Good Vibes Always',
-    excerpt: 'Community events designed to feel easy, chic, social, and impossible to skip.',
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    category: 'Beauty',
-    title: 'Post-Workout Glow, But Elevated',
-    excerpt: 'Recovery rituals, beauty treatments, and simple upgrades that actually fit an active lifestyle.',
-    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    category: 'Found',
-    title: 'The Finds of the Month Worth Trying',
-    excerpt: 'Products, experiences, and little luxuries the fit girls are talking about right now.',
-    image: 'https://images.unsplash.com/photo-1506629905607-c52b46cdbd39?auto=format&fit=crop&w=900&q=80',
-  },
-]
-
-const eventCards = [
-  {
-    date: 'May 22',
-    title: 'The White Lotus Social',
-    place: 'Moxy South Beach Rooftop',
-    summary: 'An iconic VIP affair with resort energy, polished visuals, and high-touch brand moments.',
-  },
-  {
-    date: 'Oct 11',
-    title: 'Fit Girl Walk Club',
-    place: 'North Miami',
-    summary: 'Coffee, movement, social time, and a format that turns simple community into real loyalty.',
-  },
-  {
-    date: 'Next Drop',
-    title: 'Recovery House Morning',
-    place: 'Miami',
-    summary: 'Sauna, cold plunge, expert chat, and editorial content designed for both attendance and shareability.',
-  },
-]
+const feed = feedData.items
+const eventCards = eventsData.items
 
 const partnerPoints = [
   'A premium, wellness-forward female audience',
@@ -86,23 +33,7 @@ const partnerPoints = [
   'A media + events platform, not just a one-off gathering',
 ]
 
-const testimonials = [
-  {
-    quote: "This is the newsletter I forward to my group chat every week.",
-    author: "Sarah M.",
-    role: "Fitness Enthusiast"
-  },
-  {
-    quote: "Finally, wellness content that doesn't feel generic. It's smart, curated, and actually worth my time.",
-    author: "Jessica R.",
-    role: "Wellness Coach"
-  },
-  {
-    quote: "The events are incredible. Real community, real energy, real connections with like-minded women.",
-    author: "Amanda T.",
-    role: "Event Attendee"
-  }
-]
+const testimonials = testimonialsData.items
 
 function NewsletterForm({ compact = false }) {
   const [email, setEmail] = useState('')
@@ -246,16 +177,16 @@ export default function App() {
             <div className="hero-visual">
               <div className="hero-card main">
                 <img
-                  src="https://images.unsplash.com/photo-1518310952931-b1de897abd40?auto=format&fit=crop&w=1100&q=80"
-                  alt="Women in an elegant fitness and wellness setting"
+                  src={heroData.mainImage}
+                  alt={heroData.mainImageAlt}
                 />
-                <div className="overlay-badge">Miami editorial energy</div>
+                <div className="overlay-badge">{heroData.mainImageBadge}</div>
               </div>
               <div className="hero-stack">
                 <div className="hero-card small">
                   <img
-                    src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"
-                    alt="Wellness lifestyle editorial"
+                    src={heroData.secondaryImage}
+                    alt={heroData.secondaryImageAlt}
                   />
                 </div>
                 <div className="hero-note">
@@ -350,17 +281,13 @@ export default function App() {
             <div className="feed-layout">
               <article className="lead-story">
                 <img
-                  src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?auto=format&fit=crop&w=1200&q=80"
-                  alt="Editorial beauty and wellness lead story"
+                  src={feedData.leadStory.image}
+                  alt={feedData.leadStory.imageAlt}
                 />
                 <div className="lead-story-copy">
-                  <span className="mini-kicker">Lead Story</span>
-                  <h3>The New Rules of Fit-Girl Culture</h3>
-                  <p>
-                    Today's wellness girl wants beauty, movement, recovery, social life, and
-                    smarter recommendations in one editorial ecosystem. That is the gap this brand
-                    fills.
-                  </p>
+                  <span className="mini-kicker">{feedData.leadStory.kicker}</span>
+                  <h3>{feedData.leadStory.title}</h3>
+                  <p>{feedData.leadStory.excerpt}</p>
                   <a href="#newsletter" className="text-link">Read more</a>
                 </div>
               </article>
@@ -395,7 +322,7 @@ export default function App() {
             <div className="newsletter-panel">
               <NewsletterForm />
               <p className="micro-copy">
-                Replace this with Beehiiv, ConvertKit, or your preferred CRM embed when ready.
+                ✦ Join 1,000+ fit girls — no spam, ever.
               </p>
             </div>
           </div>

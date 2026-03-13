@@ -187,17 +187,32 @@ input {
   transition: 180ms ease;
 }
 
-.nav-cta,
-.button.primary {
-  background: var(--text);
+.nav-cta {
+  background: var(--accent-strong);
   color: #fff;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 4px 16px rgba(217, 93, 129, 0.28);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
 }
 
-.nav-cta:hover,
-.button.primary:hover {
+.nav-cta:hover {
   transform: translateY(-1px);
-  background: #130c0f;
+  background: var(--accent-deep);
+  box-shadow: 0 6px 20px rgba(191, 78, 114, 0.32);
+}
+
+.button.primary {
+  background: var(--accent-strong);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(217, 93, 129, 0.28);
+  font-weight: 700;
+}
+
+.button.primary:hover {
+  transform: translateY(-2px);
+  background: var(--accent-deep);
+  box-shadow: 0 8px 24px rgba(191, 78, 114, 0.32);
 }
 
 .button.secondary {
@@ -819,11 +834,14 @@ input {
   }
 
   .nav-cta {
-    background: var(--text);
+    background: var(--accent-strong);
     color: #fff;
     border-radius: 12px;
     margin-top: 0.5rem;
-    box-shadow: var(--shadow-soft);
+    box-shadow: 0 4px 16px rgba(217, 93, 129, 0.28);
+    font-weight: 700;
+    text-align: center;
+    justify-content: center;
   }
 
   .nav.open {

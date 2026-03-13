@@ -1,0 +1,134 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+
+logo_url: /admin/logo.svg
+
+collections:
+  - name: hero
+    label: "Hero Section"
+    files:
+      - label: "Hero"
+        name: hero
+        file: "src/data/hero.json"
+        format: json
+        fields:
+          - label: "Headline"
+            name: headline
+            widget: string
+          - label: "Lead Text"
+            name: leadText
+            widget: text
+          - label: "Main Image"
+            name: mainImage
+            widget: image
+            hint: "Primary hero image (woman, wellness, editorial)"
+          - label: "Main Image Alt Text"
+            name: mainImageAlt
+            widget: string
+          - label: "Main Image Badge"
+            name: mainImageBadge
+            widget: string
+          - label: "Secondary Image"
+            name: secondaryImage
+            widget: image
+            hint: "Smaller stacked image beside the main one"
+          - label: "Secondary Image Alt Text"
+            name: secondaryImageAlt
+            widget: string
+
+  - name: feed
+    label: "The Feed"
+    files:
+      - label: "Lead Story"
+        name: lead_story
+        file: "src/data/feed.json"
+        format: json
+        fields:
+          - label: "Lead Story"
+            name: leadStory
+            widget: object
+            fields:
+              - label: "Image"
+                name: image
+                widget: image
+              - label: "Image Alt"
+                name: imageAlt
+                widget: string
+              - label: "Kicker"
+                name: kicker
+                widget: string
+              - label: "Title"
+                name: title
+                widget: string
+              - label: "Excerpt"
+                name: excerpt
+                widget: text
+          - label: "Feed Articles"
+            name: items
+            widget: list
+            fields:
+              - label: "Category"
+                name: category
+                widget: select
+                options: [Wellness, Culture, Fitness, Events, Beauty, Found, Travel, Style]
+              - label: "Title"
+                name: title
+                widget: string
+              - label: "Excerpt"
+                name: excerpt
+                widget: text
+              - label: "Image"
+                name: image
+                widget: image
+
+  - name: events
+    label: "Events"
+    files:
+      - label: "Events"
+        name: events
+        file: "src/data/events.json"
+        format: json
+        fields:
+          - label: "Events"
+            name: items
+            widget: list
+            fields:
+              - label: "Date Label"
+                name: date
+                widget: string
+                hint: "e.g. May 22, Oct 11, Next Drop"
+              - label: "Event Title"
+                name: title
+                widget: string
+              - label: "Location"
+                name: place
+                widget: string
+              - label: "Summary"
+                name: summary
+                widget: text
+
+  - name: testimonials
+    label: "Testimonials"
+    files:
+      - label: "Testimonials"
+        name: testimonials
+        file: "src/data/testimonials.json"
+        format: json
+        fields:
+          - label: "Testimonials"
+            name: items
+            widget: list
+            fields:
+              - label: "Quote"
+                name: quote
+                widget: text
+              - label: "Name"
+                name: author
+                widget: string
+              - label: "Role / Title"
+                name: role
+                widget: string
