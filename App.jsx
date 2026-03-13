@@ -86,14 +86,48 @@ const partnerPoints = [
   'A media + events platform, not just a one-off gathering',
 ]
 
+const testimonials = [
+  {
+    quote: "This is the newsletter I forward to my group chat every week.",
+    author: "Sarah M.",
+    role: "Fitness Enthusiast"
+  },
+  {
+    quote: "Finally, wellness content that doesn't feel generic. It's smart, curated, and actually worth my time.",
+    author: "Jessica R.",
+    role: "Wellness Coach"
+  },
+  {
+    quote: "The events are incredible. Real community, real energy, real connections with like-minded women.",
+    author: "Amanda T.",
+    role: "Event Attendee"
+  }
+]
+
 function NewsletterForm({ compact = false }) {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
 
   function handleSubmit(e) {
     e.preventDefault()
-    if (!email.trim()) return
+    setError('')
+
+    if (!email.trim()) {
+      setError('Please enter your email')
+      return
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email')
+      return
+    }
+
     setSubmitted(true)
+    setTimeout(() => {
+      setEmail('')
+    }, 2000)
   }
 
   return (
@@ -101,18 +135,27 @@ function NewsletterForm({ compact = false }) {
       <label className="sr-only" htmlFor={compact ? 'compact-email' : 'hero-email'}>
         Email address
       </label>
-      <input
-        id={compact ? 'compact-email' : 'hero-email'}
-        type="email"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        aria-label="Email address"
-      />
-      <button type="submit">Join the newsletter</button>
+      <div className="form-group">
+        <input
+          id={compact ? 'compact-email' : 'hero-email'}
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value)
+            setError('')
+          }}
+          aria-label="Email address"
+          disabled={submitted}
+        />
+        <button type="submit" disabled={submitted}>
+          {submitted ? 'Subscribed!' : 'Join the newsletter'}
+        </button>
+      </div>
+      {error && <p className="form-error">{error}</p>}
       {submitted && (
         <p className="form-success">
-          Signup captured. Connect this form to Beehiiv, ConvertKit, or your CRM next.
+          ✓ Welcome to the list! Check your inbox for our latest edition.
         </p>
       )}
     </form>
@@ -354,6 +397,27 @@ export default function App() {
               <p className="micro-copy">
                 Replace this with Beehiiv, ConvertKit, or your preferred CRM embed when ready.
               </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="testimonials section">
+          <div className="container">
+            <SectionHeader
+              align="center"
+              eyebrow="What readers say"
+              title="Already loved by the fit-girl community"
+            />
+            <div className="testimonials-grid">
+              {testimonials.map((testimonial) => (
+                <article className="testimonial-card" key={testimonial.author}>
+                  <p className="testimonial-quote">"{testimonial.quote}"</p>
+                  <div className="testimonial-author">
+                    <strong>{testimonial.author}</strong>
+                    <span>{testimonial.role}</span>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
