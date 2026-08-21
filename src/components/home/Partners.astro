@@ -1,0 +1,108 @@
+---
+import SectionHeader from '~/components/ui/SectionHeader.astro'
+
+const points = [
+  'A premium, wellness-forward female audience',
+  'Editorial storytelling before and after the event',
+  'High-touch in-person activations with visual payoff',
+  'Brand-aligned placements, goodie bags, and recaps',
+  'A media + events platform, not just a one-off gathering',
+]
+---
+
+<section id="partners" class="partners section soft">
+  <div class="container partners-grid">
+    <div>
+      <SectionHeader
+        eyebrow="Partner with us"
+        title="A better platform for corporate wellness, sponsorships, and beautiful exposure."
+        text="This brand monetizes through newsletter reach, branded activations, event production, and curated sponsor visibility."
+      />
+      <ul class="partner-list reveal">
+        {points.map((p) => (
+          <li>
+            <span class="check" aria-hidden="true">✓</span>
+            <span>{p}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <aside class="partner-panel reveal">
+      <span class="mini-kicker">Best fit clients</span>
+      <h3>Brands, wellness operators, hospitality groups, and corporate event buyers</h3>
+      <p>
+        Position Fit Girl Things as both a media brand and an activation partner. More
+        exposure, more event attendance, more corporate clients hiring the brand to create
+        on-message wellness experiences.
+      </p>
+      <a href="/contact" class="button primary full">Inquire about partnerships</a>
+      <a href="/for/sponsor" class="text-link" style="margin-top:1rem;display:inline-flex">See our sponsor deck</a>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .partners-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .partner-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .partner-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    color: var(--text);
+    line-height: var(--leading-relaxed);
+  }
+
+  .check {
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: var(--accent-strong);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .partner-panel {
+    padding: 1.85rem;
+    border-radius: var(--radius-xl);
+    background: color-mix(in oklab, var(--surface) 90%, transparent);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+
+  .partner-panel h3 {
+    margin: 0.7rem 0 0.9rem;
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .partner-panel p {
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+    margin: 0 0 1.4rem;
+  }
+
+  @media (max-width: 900px) {
+    .partners-grid { grid-template-columns: 1fr; }
+  }
+</style>

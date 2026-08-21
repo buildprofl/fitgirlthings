@@ -1,0 +1,42 @@
+---
+interface Props {
+  eyebrow?: string
+  logos: { name: string; src?: string }[]
+}
+const { eyebrow, logos } = Astro.props
+---
+
+<section class="lb-logos section tight">
+  <div class="container">
+    {eyebrow && <span class="eyebrow center reveal">{eyebrow}</span>}
+    <div class="lb-logos-strip reveal">
+      {logos.map((logo) => (
+        <div class="lb-logo" title={logo.name}>
+          {logo.src ? <img src={logo.src} alt={logo.name} loading="lazy" /> : <span>{logo.name}</span>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .center { display: block; text-align: center; margin: 0 auto; }
+  .lb-logos-strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    margin-top: 1rem;
+  }
+  .lb-logo {
+    color: var(--muted);
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    letter-spacing: 0.02em;
+    opacity: 0.65;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+  .lb-logo:hover { opacity: 1; }
+  .lb-logo img { max-height: 32px; opacity: 0.7; }
+</style>

@@ -5,130 +5,279 @@ backend:
 media_folder: public/uploads
 public_folder: /uploads
 
+site_url: https://fitgirlthings.com
+display_url: https://fitgirlthings.com
 logo_url: /admin/logo.svg
 
+publish_mode: editorial_workflow
+
 collections:
-  - name: hero
-    label: "Hero Section"
+  # --- Articles (MDX) ---
+  - name: articles
+    label: "Articles (The Feed)"
+    label_singular: "Article"
+    folder: "src/content/articles"
+    create: true
+    slug: "{{slug}}"
+    extension: mdx
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} · {{category}}"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: title, widget: string }
+      - { label: "Excerpt", name: excerpt, widget: text }
+      - label: "Category"
+        name: category
+        widget: select
+        options: [Wellness, Culture, Fitness, Events, Beauty, Found]
+      - { label: "Kicker (optional)", name: kicker, widget: string, required: false }
+      - { label: "Cover Image", name: image, widget: image }
+      - { label: "Cover Image (Mobile, optional)", name: imageMobile, widget: image, required: false }
+      - { label: "Image Alt Text", name: imageAlt, widget: string, required: false }
+      - { label: "Published At", name: publishedAt, widget: datetime, format: "YYYY-MM-DD" }
+      - { label: "Updated At (optional)", name: updatedAt, widget: datetime, format: "YYYY-MM-DD", required: false }
+      - { label: "Author", name: author, widget: string, default: "FGT Editors" }
+      - { label: "Reading Minutes", name: readingMinutes, widget: number, required: false, min: 1, value_type: int }
+      - { label: "Tags", name: tags, widget: list, required: false }
+      - { label: "Draft?", name: draft, widget: boolean, default: true, hint: "When true, article does not appear on the site." }
+      - { label: "Body", name: body, widget: markdown }
+
+  # --- Events ---
+  - name: events
+    label: "Events"
+    label_singular: "Event"
+    folder: "src/content/events"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} · {{dateLabelMonth}} {{dateLabelDay}}"
+    fields:
+      - { label: "Title", name: title, widget: string }
+      - { label: "Place", name: place, widget: string }
+      - { label: "Summary", name: summary, widget: text }
+      - { label: "Date", name: date, widget: datetime, format: "YYYY-MM-DD" }
+      - { label: "Date Label — Month", name: dateLabelMonth, widget: string, hint: "e.g. 'May', 'Oct'" }
+      - { label: "Date Label — Day", name: dateLabelDay, widget: string, hint: "e.g. '22', '11'" }
+      - { label: "Image", name: image, widget: image, required: false }
+      - { label: "Image Alt", name: imageAlt, widget: string, required: false }
+      - { label: "Capacity", name: capacity, widget: number, required: false, min: 1, value_type: int }
+      - { label: "Price", name: price, widget: string, required: false, hint: "e.g. 'Free', '$45', 'Invitation-only'" }
+      - { label: "Hosted By", name: hostedBy, widget: string, default: "Fit Girl Things" }
+      - { label: "Highlights", name: highlights, widget: list, required: false }
+      - { label: "Draft?", name: draft, widget: boolean, default: false }
+      - { label: "Body", name: body, widget: markdown, required: false }
+
+  # --- Landing Pages (block composition) ---
+  - name: landing
+    label: "Landing Pages"
+    label_singular: "Landing Page"
+    folder: "src/content/landing"
+    create: true
+    slug: "{{campaign}}"
+    extension: json
+    format: json
+    identifier_field: title
+    summary: "{{title}} · /for/{{campaign}}"
+    fields:
+      - { label: "Campaign slug (URL: /for/<slug>)", name: campaign, widget: string, pattern: ['^[a-z0-9-]+$', 'lowercase, digits, dashes only'] }
+      - { label: "Page Title", name: title, widget: string }
+      - { label: "SEO Description", name: description, widget: text }
+      - { label: "OG Image (optional)", name: ogImage, widget: image, required: false }
+      - { label: "Canonical URL (optional)", name: canonical, widget: string, required: false }
+      - { label: "Hide from search engines?", name: noindex, widget: boolean, default: false }
+      - label: "Page Blocks"
+        name: blocks
+        widget: list
+        hint: "Compose the landing page top-to-bottom. Pick a block type per row."
+        types:
+          - label: "Hero"
+            name: Hero
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - { label: "Title", name: title, widget: string }
+              - { label: "Subtitle", name: subtitle, widget: text, required: false }
+              - label: "Primary CTA"
+                name: primaryCta
+                widget: object
+                required: false
+                fields:
+                  - { label: "Label", name: label, widget: string }
+                  - { label: "Href", name: href, widget: string }
+              - label: "Secondary CTA"
+                name: secondaryCta
+                widget: object
+                required: false
+                fields:
+                  - { label: "Label", name: label, widget: string }
+                  - { label: "Href", name: href, widget: string }
+              - { label: "Image", name: image, widget: image, required: false }
+              - { label: "Image Alt", name: imageAlt, widget: string, required: false }
+
+          - label: "PAS (Problem / Agitation / Solution)"
+            name: PAS
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - { label: "Problem", name: problem, widget: text }
+              - { label: "Agitation", name: agitation, widget: text }
+              - { label: "Solution", name: solution, widget: text }
+
+          - label: "Social Proof"
+            name: SocialProof
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - label: "Stats"
+                name: stats
+                widget: list
+                required: false
+                fields:
+                  - { label: "Value", name: value, widget: string }
+                  - { label: "Label", name: label, widget: string }
+              - label: "Quotes"
+                name: quotes
+                widget: list
+                required: false
+                fields:
+                  - { label: "Quote", name: quote, widget: text }
+                  - { label: "Author", name: author, widget: string }
+                  - { label: "Role", name: role, widget: string, required: false }
+
+          - label: "Feature Triad (3 columns)"
+            name: FeatureTriad
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - { label: "Title", name: title, widget: string, required: false }
+              - label: "Items"
+                name: items
+                widget: list
+                fields:
+                  - { label: "Kicker", name: kicker, widget: string }
+                  - { label: "Title", name: title, widget: string }
+                  - { label: "Text", name: text, widget: text }
+
+          - label: "Logo Strip"
+            name: LogoStrip
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - label: "Logos"
+                name: logos
+                widget: list
+                fields:
+                  - { label: "Name", name: name, widget: string }
+                  - { label: "Image (optional)", name: src, widget: image, required: false }
+
+          - label: "Price Anchor (Tiered Pricing)"
+            name: PriceAnchor
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - { label: "Title", name: title, widget: string }
+              - label: "Tiers"
+                name: tiers
+                widget: list
+                fields:
+                  - { label: "Name", name: name, widget: string }
+                  - { label: "Price", name: price, widget: string }
+                  - { label: "Cadence", name: cadence, widget: string, required: false }
+                  - { label: "Highlight (make prominent)?", name: highlight, widget: boolean, default: false }
+                  - { label: "Features", name: features, widget: list }
+                  - label: "CTA"
+                    name: cta
+                    widget: object
+                    fields:
+                      - { label: "Label", name: label, widget: string }
+                      - { label: "Href", name: href, widget: string }
+
+          - label: "FAQ"
+            name: FAQ
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - { label: "Title", name: title, widget: string, required: false }
+              - label: "Items"
+                name: items
+                widget: list
+                fields:
+                  - { label: "Question", name: q, widget: string }
+                  - { label: "Answer", name: a, widget: text }
+
+          - label: "Guarantee"
+            name: Guarantee
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - { label: "Title", name: title, widget: string }
+              - { label: "Body", name: body, widget: text }
+
+          - label: "Urgency (Deadline / Scarcity Bar)"
+            name: Urgency
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - { label: "Headline", name: headline, widget: string }
+              - { label: "Scarcity", name: scarcity, widget: string, required: false }
+              - { label: "Deadline", name: deadline, widget: string, required: false }
+
+          - label: "Close CTA"
+            name: CloseCTA
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - { label: "Title", name: title, widget: string }
+              - { label: "Subtitle", name: subtitle, widget: text, required: false }
+              - label: "CTA"
+                name: cta
+                widget: object
+                fields:
+                  - { label: "Label", name: label, widget: string }
+                  - { label: "Href", name: href, widget: string }
+              - { label: "Reassurance line", name: reassurance, widget: string, required: false }
+
+          - label: "Testimonials"
+            name: Testimonials
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - label: "Items"
+                name: items
+                widget: list
+                fields:
+                  - { label: "Quote", name: quote, widget: text }
+                  - { label: "Author", name: author, widget: string }
+                  - { label: "Role", name: role, widget: string, required: false }
+
+          - label: "Video Embed (YouTube / Vimeo)"
+            name: VideoEmbed
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string, required: false }
+              - { label: "Title", name: title, widget: string, required: false }
+              - { label: "Provider", name: provider, widget: select, options: [youtube, vimeo] }
+              - { label: "Video ID", name: videoId, widget: string, hint: "e.g. dQw4w9WgXcQ" }
+
+  # --- Site JSON (kept for hero content editing) ---
+  - name: site
+    label: "Home Hero"
     files:
-      - label: "Hero"
+      - label: "Hero Section"
         name: hero
         file: "src/data/hero.json"
         format: json
         fields:
-          - label: "Headline"
-            name: headline
-            widget: string
-          - label: "Lead Text"
-            name: leadText
-            widget: text
-          - label: "Main Image"
-            name: mainImage
-            widget: image
-            hint: "Primary hero image (woman, wellness, editorial)"
-          - label: "Main Image Alt Text"
-            name: mainImageAlt
-            widget: string
-          - label: "Main Image Badge"
-            name: mainImageBadge
-            widget: string
-          - label: "Secondary Image"
-            name: secondaryImage
-            widget: image
-            hint: "Smaller stacked image beside the main one"
-          - label: "Secondary Image Alt Text"
-            name: secondaryImageAlt
-            widget: string
-
-  - name: feed
-    label: "The Feed"
-    files:
-      - label: "Lead Story"
-        name: lead_story
-        file: "src/data/feed.json"
-        format: json
-        fields:
-          - label: "Lead Story"
-            name: leadStory
-            widget: object
-            fields:
-              - label: "Image"
-                name: image
-                widget: image
-              - label: "Image Alt"
-                name: imageAlt
-                widget: string
-              - label: "Kicker"
-                name: kicker
-                widget: string
-              - label: "Title"
-                name: title
-                widget: string
-              - label: "Excerpt"
-                name: excerpt
-                widget: text
-          - label: "Feed Articles"
-            name: items
-            widget: list
-            fields:
-              - label: "Category"
-                name: category
-                widget: select
-                options: [Wellness, Culture, Fitness, Events, Beauty, Found, Travel, Style]
-              - label: "Title"
-                name: title
-                widget: string
-              - label: "Excerpt"
-                name: excerpt
-                widget: text
-              - label: "Image"
-                name: image
-                widget: image
-
-  - name: events
-    label: "Events"
-    files:
-      - label: "Events"
-        name: events
-        file: "src/data/events.json"
-        format: json
-        fields:
-          - label: "Events"
-            name: items
-            widget: list
-            fields:
-              - label: "Date Label"
-                name: date
-                widget: string
-                hint: "e.g. May 22, Oct 11, Next Drop"
-              - label: "Event Title"
-                name: title
-                widget: string
-              - label: "Location"
-                name: place
-                widget: string
-              - label: "Summary"
-                name: summary
-                widget: text
-
-  - name: testimonials
-    label: "Testimonials"
-    files:
-      - label: "Testimonials"
-        name: testimonials
-        file: "src/data/testimonials.json"
-        format: json
-        fields:
-          - label: "Testimonials"
-            name: items
-            widget: list
-            fields:
-              - label: "Quote"
-                name: quote
-                widget: text
-              - label: "Name"
-                name: author
-                widget: string
-              - label: "Role / Title"
-                name: role
-                widget: string
+          - { label: "Headline", name: headline, widget: string }
+          - { label: "Lead Text", name: leadText, widget: text }
+          - { label: "Main Image", name: mainImage, widget: image }
+          - { label: "Main Image Mobile", name: mainImageMobile, widget: image, required: false }
+          - { label: "Main Image Alt", name: mainImageAlt, widget: string }
+          - { label: "Main Image Badge", name: mainImageBadge, widget: string }
+          - { label: "Secondary Image", name: secondaryImage, widget: image }
+          - { label: "Secondary Image Mobile", name: secondaryImageMobile, widget: image, required: false }
+          - { label: "Secondary Image Alt", name: secondaryImageAlt, widget: string }

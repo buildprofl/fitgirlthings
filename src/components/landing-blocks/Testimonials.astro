@@ -1,0 +1,52 @@
+---
+interface Props {
+  eyebrow?: string
+  items: { quote: string; author: string; role?: string }[]
+}
+const { eyebrow, items } = Astro.props
+---
+
+<section class="lb-testimonials section soft">
+  <div class="container">
+    {eyebrow && <span class="eyebrow reveal">{eyebrow}</span>}
+    <div class="lb-testimonials-grid">
+      {items.map((t, i) => (
+        <figure class="lb-testimonial reveal" style={`transition-delay: ${i * 70}ms`}>
+          <blockquote>"{t.quote}"</blockquote>
+          <figcaption>
+            <strong>{t.author}</strong>
+            {t.role && <span>{t.role}</span>}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .lb-testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .lb-testimonial {
+    margin: 0;
+    padding: 1.75rem;
+    border-radius: var(--radius-lg);
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+  .lb-testimonial blockquote {
+    margin: 0 0 1rem;
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    font-style: italic;
+    color: var(--text);
+  }
+  .lb-testimonial figcaption strong { display: block; color: var(--text); font-size: 0.95rem; }
+  .lb-testimonial figcaption span { color: var(--muted); font-size: 0.85rem; }
+</style>

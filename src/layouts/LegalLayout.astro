@@ -1,0 +1,106 @@
+---
+import BaseLayout from './BaseLayout.astro'
+interface Props {
+  title: string
+  description?: string
+  updated?: string
+}
+const { title, description, updated } = Astro.props
+---
+
+<BaseLayout title={title} description={description ?? title}>
+  <article class="legal-page">
+    <header class="legal-header">
+      <a href="/" class="back-link" aria-label="Back to home">← Home</a>
+      <h1>{title}</h1>
+      {updated && <p class="last-updated">Last updated: {updated}</p>}
+    </header>
+    <div class="legal-body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: clamp(2rem, 4vw, 3.5rem) var(--gutter);
+    min-height: 60vh;
+  }
+
+  .legal-header { margin-bottom: 2rem; }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1.25rem;
+    color: var(--accent-deep);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+  }
+  .back-link:hover { color: var(--accent-strong); }
+
+  .legal-page :global(h1) {
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+  }
+
+  .last-updated {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 0;
+  }
+
+  .legal-body :global(h2) {
+    font-family: var(--font-serif);
+    font-size: 1.65rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 2rem 0 0.9rem;
+    font-weight: 600;
+  }
+
+  .legal-body :global(h3) {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .legal-body :global(p),
+  .legal-body :global(li) {
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .legal-body :global(ul),
+  .legal-body :global(ol) {
+    margin: 1rem 0 1.25rem 1.5rem;
+    padding: 0;
+  }
+
+  .legal-body :global(li) { margin-bottom: 0.5rem; }
+
+  .legal-body :global(strong) { color: var(--text); }
+
+  .legal-body :global(a) {
+    color: var(--accent-deep);
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+
+  .legal-body :global(a:hover) {
+    color: var(--accent-strong);
+    border-color: var(--accent-strong);
+  }
+</style>

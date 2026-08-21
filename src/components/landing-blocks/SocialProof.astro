@@ -1,0 +1,94 @@
+---
+interface Props {
+  eyebrow?: string
+  stats?: { value: string; label: string }[]
+  quotes?: { quote: string; author: string; role?: string }[]
+}
+const { eyebrow, stats = [], quotes = [] } = Astro.props
+---
+
+<section class="lb-sp section">
+  <div class="container">
+    {eyebrow && <span class="eyebrow reveal">{eyebrow}</span>}
+    {stats.length > 0 && (
+      <div class="lb-sp-stats">
+        {stats.map((s, i) => (
+          <div class="lb-sp-stat reveal" style={`transition-delay: ${i * 80}ms`}>
+            <strong>{s.value}</strong>
+            <span>{s.label}</span>
+          </div>
+        ))}
+      </div>
+    )}
+    {quotes.length > 0 && (
+      <div class="lb-sp-quotes">
+        {quotes.map((q, i) => (
+          <figure class="lb-sp-quote reveal" style={`transition-delay: ${i * 80}ms`}>
+            <blockquote>"{q.quote}"</blockquote>
+            <figcaption>
+              <strong>{q.author}</strong>
+              {q.role && <span>{q.role}</span>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .lb-sp { padding: clamp(3rem, 5vw, 5rem) 0; }
+  .lb-sp-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .lb-sp-stat {
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    background: linear-gradient(180deg, var(--surface), var(--surface-soft));
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+  .lb-sp-stat strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    color: var(--accent-deep);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+  }
+  .lb-sp-stat span { color: var(--muted); font-size: 0.95rem; line-height: 1.4; }
+  .lb-sp-quotes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .lb-sp-quote {
+    margin: 0;
+    padding: 1.75rem;
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .lb-sp-quote blockquote {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    font-style: italic;
+  }
+  .lb-sp-quote figcaption { display: flex; flex-direction: column; gap: 0.15rem; }
+  .lb-sp-quote figcaption strong { color: var(--text); font-size: 0.95rem; }
+  .lb-sp-quote figcaption span { color: var(--muted); font-size: 0.85rem; }
+</style>

@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import Renderer from '~/components/landing-blocks/Renderer.astro'
+
+export async function getStaticPaths() {
+  const pages = await getCollection('landing')
+  return pages.map((entry) => ({
+    params: { campaign: entry.data.campaign },
+    props: { entry },
+  }))
+}
+
+const { entry } = Astro.props
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  image={entry.data.ogImage ?? '/og/default.png'}
+  canonical={entry.data.canonical}
+  noindex={entry.data.noindex}
+>
+  <Renderer blocks={entry.data.blocks} />
+</BaseLayout>

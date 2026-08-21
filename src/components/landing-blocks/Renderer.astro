@@ -1,0 +1,39 @@
+---
+import type { LandingBlock } from '~/content/config'
+import Hero from './Hero.astro'
+import PAS from './PAS.astro'
+import SocialProof from './SocialProof.astro'
+import PriceAnchor from './PriceAnchor.astro'
+import FAQ from './FAQ.astro'
+import Guarantee from './Guarantee.astro'
+import Urgency from './Urgency.astro'
+import CloseCTA from './CloseCTA.astro'
+import FeatureTriad from './FeatureTriad.astro'
+import LogoStrip from './LogoStrip.astro'
+import Testimonials from './Testimonials.astro'
+import VideoEmbed from './VideoEmbed.astro'
+
+interface Props {
+  blocks: LandingBlock[]
+}
+
+const { blocks } = Astro.props
+---
+
+{blocks.map((block) => {
+  switch (block.type) {
+    case 'Hero': return <Hero {...block} />
+    case 'PAS': return <PAS {...block} />
+    case 'SocialProof': return <SocialProof {...block} />
+    case 'PriceAnchor': return <PriceAnchor {...block} />
+    case 'FAQ': return <FAQ {...block} />
+    case 'Guarantee': return <Guarantee {...block} />
+    case 'Urgency': return <Urgency {...block} />
+    case 'CloseCTA': return <CloseCTA {...block} />
+    case 'FeatureTriad': return <FeatureTriad {...block} />
+    case 'LogoStrip': return <LogoStrip {...block} />
+    case 'Testimonials': return <Testimonials {...block} />
+    case 'VideoEmbed': return <VideoEmbed {...block} />
+    default: return null
+  }
+})}

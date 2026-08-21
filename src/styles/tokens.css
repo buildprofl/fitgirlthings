@@ -1,0 +1,118 @@
+/* ============================================================
+   FGT Design Tokens — palette + typography preserved exactly
+   from the current live site (styles.css :root). Any change
+   here changes the whole brand. Treat as a locked contract.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* Brand palette — light */
+  --bg: #fffaf8;
+  --surface: #ffffff;
+  --surface-soft: #fff2ef;
+  --surface-blush: linear-gradient(135deg, #ffe8ea 0%, #fff5f0 100%);
+  --text: #24191d;
+  --muted: #6f5f64;
+  --line: rgba(36, 25, 29, 0.1);
+  --line-strong: rgba(36, 25, 29, 0.16);
+
+  --accent: #e8829b;
+  --accent-strong: #d95d81;
+  --accent-deep: #bf4e72;
+  --accent-glow: rgba(232, 130, 155, 0.20);
+
+  --shadow: 0 20px 45px rgba(115, 61, 79, 0.08);
+  --shadow-soft: 0 15px 35px rgba(115, 61, 79, 0.06);
+  --shadow-lifted: 0 30px 60px rgba(115, 61, 79, 0.12);
+
+  /* Radii */
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+
+  /* Layout */
+  --container: 1220px;
+  --gutter: clamp(1rem, 3vw, 2rem);
+  --nav-height: 84px;
+
+  /* Type scale */
+  --font-serif: 'Cormorant Garamond', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --fs-display: clamp(3.4rem, 7vw, 7rem);
+  --fs-h1: clamp(2.4rem, 5vw, 4.4rem);
+  --fs-h2: clamp(2rem, 3.5vw, 3.4rem);
+  --fs-h3: 1.35rem;
+  --fs-body: 1.04rem;
+  --fs-small: 0.9rem;
+  --fs-eyebrow: 0.78rem;
+
+  --leading-tight: 0.95;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-med: 260ms;
+  --dur-slow: 460ms;
+
+  /* Z-layers */
+  --z-nav: 40;
+  --z-menu: 50;
+  --z-toast: 80;
+  --z-modal: 100;
+}
+
+/* Explicit dark opt-in via [data-theme="dark"] on <html>.
+   Also picks up prefers-color-scheme when data-theme not set to light. */
+:root[data-theme='dark'],
+:root:not([data-theme='light']) {
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+
+    --bg: #17111a;
+    --surface: #1f1620;
+    --surface-soft: #251a26;
+    --surface-blush: linear-gradient(135deg, #2a1a22 0%, #1f1620 100%);
+    --text: #f5e6ea;
+    --muted: #b7a1a8;
+    --line: rgba(245, 230, 234, 0.08);
+    --line-strong: rgba(245, 230, 234, 0.14);
+
+    --accent: #f4a4b9;
+    --accent-strong: #eb7a97;
+    --accent-deep: #d7607e;
+    --accent-glow: rgba(244, 164, 185, 0.22);
+
+    --shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+    --shadow-soft: 0 15px 35px rgba(0, 0, 0, 0.4);
+    --shadow-lifted: 0 30px 60px rgba(0, 0, 0, 0.55);
+  }
+}
+
+/* Explicit dark toggle beats media query */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #17111a;
+  --surface: #1f1620;
+  --surface-soft: #251a26;
+  --surface-blush: linear-gradient(135deg, #2a1a22 0%, #1f1620 100%);
+  --text: #f5e6ea;
+  --muted: #b7a1a8;
+  --line: rgba(245, 230, 234, 0.08);
+  --line-strong: rgba(245, 230, 234, 0.14);
+
+  --accent: #f4a4b9;
+  --accent-strong: #eb7a97;
+  --accent-deep: #d7607e;
+  --accent-glow: rgba(244, 164, 185, 0.22);
+
+  --shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+  --shadow-soft: 0 15px 35px rgba(0, 0, 0, 0.4);
+  --shadow-lifted: 0 30px 60px rgba(0, 0, 0, 0.55);
+}

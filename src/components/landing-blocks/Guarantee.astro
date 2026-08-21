@@ -1,0 +1,60 @@
+---
+interface Props {
+  eyebrow?: string
+  title: string
+  body: string
+}
+const { eyebrow, title, body } = Astro.props
+---
+
+<section class="lb-guarantee section">
+  <div class="container">
+    <div class="lb-guarantee-inner reveal">
+      <div class="badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h2>{title}</h2>
+      <p>{body}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lb-guarantee-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(180deg, var(--surface), var(--surface-soft));
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .badge {
+    display: inline-grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 999px;
+    margin: 0 auto 1rem;
+    color: var(--accent-strong);
+    background: var(--accent-glow);
+  }
+  .lb-guarantee-inner h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    letter-spacing: -0.02em;
+    margin: 0.5rem 0 0.75rem;
+  }
+  .lb-guarantee-inner p {
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+    max-width: 56ch;
+    margin-inline: auto;
+  }
+</style>
