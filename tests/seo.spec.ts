@@ -23,7 +23,7 @@ test('home page has proper SEO meta', async ({ page }) => {
 })
 
 test('article page emits Article JSON-LD + BreadcrumbList', async ({ page }) => {
-  await page.goto('/feed/the-new-rules-of-fit-girl-culture')
+  await page.goto('/spotted/spotted-rp-heat-boca-raton-and-delray-beach')
   const jsonLds = await page.locator('script[type="application/ld+json"]').allTextContents()
   const combined = jsonLds.join(' | ')
 
@@ -32,16 +32,16 @@ test('article page emits Article JSON-LD + BreadcrumbList', async ({ page }) => 
   expect(combined).toMatch(/"@type"\s*:\s*"BreadcrumbList"/)
 })
 
-test('event page emits Event JSON-LD', async ({ page }) => {
-  await page.goto('/events/the-white-lotus-social')
+test('FAQ page emits FAQPage JSON-LD', async ({ page }) => {
+  await page.goto('/faqs')
   const jsonLds = await page.locator('script[type="application/ld+json"]').allTextContents()
   const combined = jsonLds.join(' | ')
 
-  expect(combined).toMatch(/"@type"\s*:\s*"Event"/)
+  expect(combined).toMatch(/"@type"\s*:\s*"FAQPage"/)
 })
 
 test('every page has one h1 and no more', async ({ page }) => {
-  for (const path of ['/', '/feed', '/events', '/contact', '/privacy', '/for/sponsor']) {
+  for (const path of ['/', '/spotted', '/fit-girl-news', '/wellness', '/fitgirlfind', '/fit-girls', '/faqs', '/contact', '/privacy', '/for/newsletter']) {
     await page.goto(path)
     const count = await page.locator('h1').count()
     expect(count, `${path} should have exactly one h1`).toBe(1)

@@ -1,0 +1,140 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { site } from '~/lib/site'
+
+const faqs = [
+  {
+    q: 'What is Fit Girl Things?',
+    a: `Fit Girl Things is Miami's fit-girl world, curated daily — a digital magazine covering the studios, brands, trends, and trainers shaping the city's fitness and wellness scene. Think of it as the source for what's opening, what's worth trying, and who's leading the culture, all in one place.`,
+  },
+  {
+    q: 'How can I get featured as a studio?',
+    a: `We're always looking for studios worth spotting — new openings, expansions, and the ones doing something genuinely different. Reach out through our contact page with what makes your studio worth covering, and we'll take it from there.`,
+  },
+  {
+    q: 'How can I get featured as a brand?',
+    a: `Same story for brands — if you've got a launch, a collaboration, or a product that fits our audience, tell us about it. The clearer your story, the easier it is for us to tell it well.`,
+  },
+  {
+    q: 'How can I get my products in front of your audience?',
+    a: `Send us the product with a short note on why it's worth our readers' attention. We cover what we genuinely think is worth trying — a strong pitch that's specific about what makes it different goes a long way.`,
+  },
+  {
+    q: 'How can I host a Fit Girl Things event?',
+    a: `We partner with studios, brands, and venues to host events under the Fit Girl Things name. If you're interested in bringing an event idea to us, reach out with your concept, timing, and venue — we'll talk it through.`,
+  },
+  {
+    q: 'I have breaking news worth sharing.',
+    a: `Send it our way. If it's timely and relevant to Miami's fitness and wellness scene, we want to know about it — the sooner, the better.`,
+  },
+]
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<BaseLayout
+  title="FAQs"
+  description="Frequently asked questions about Fit Girl Things — how to get featured, share news, host an event, or get your product in front of our audience."
+  jsonLd={faqJsonLd}
+>
+  <section class="faqs-page section">
+    <div class="container faqs-wrap">
+      <header class="page-header reveal">
+        <span class="eyebrow">FAQs</span>
+        <h1>Questions we get a lot.</h1>
+        <p>Everything you need to know about working with Fit Girl Things.</p>
+      </header>
+
+      <div class="faq-list">
+        {faqs.map((item, i) => (
+          <details class="faq-item reveal" style={`transition-delay: ${i * 60}ms`}>
+            <summary>
+              <span>{item.q}</span>
+              <span class="chev" aria-hidden="true">+</span>
+            </summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <div class="faq-cta reveal">
+        <p>Still have a question?</p>
+        <a href="/contact" class="button primary">Contact us</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .faqs-wrap { max-width: 780px; margin: 0 auto; }
+  .page-header { text-align: center; margin-bottom: 2.5rem; }
+  .page-header h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin: 0.5rem 0 1rem;
+    font-weight: 600;
+  }
+  .page-header p { color: var(--muted); font-size: 1.05rem; margin: 0; }
+
+  .faq-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .faq-item {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    padding: 0.5rem 1.25rem;
+    transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  }
+  .faq-item[open] {
+    border-color: var(--accent-strong);
+    box-shadow: var(--shadow-soft);
+  }
+  summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+    gap: 1rem;
+    font-size: 1.05rem;
+  }
+  summary::-webkit-details-marker { display: none; }
+  .chev {
+    display: grid;
+    place-items: center;
+    width: 28px; height: 28px;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--accent-strong) 20%, transparent);
+    color: var(--accent-deep);
+    font-weight: 800;
+    flex-shrink: 0;
+    transition: transform var(--dur-med) var(--ease-out);
+  }
+  .faq-item[open] .chev { transform: rotate(45deg); }
+  .faq-item p {
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+    margin: 0 0 1.1rem;
+    padding-top: 0.35rem;
+  }
+
+  .faq-cta {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .faq-cta p { color: var(--muted); margin: 0 0 1rem; font-size: 1.05rem; }
+</style>

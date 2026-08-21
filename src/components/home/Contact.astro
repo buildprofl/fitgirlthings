@@ -9,8 +9,8 @@ import { site } from '~/lib/site'
     <div>
       <SectionHeader
         eyebrow="Contact"
-        title="Let's grow the list, fill the room, and build the right brand collaborations."
-        text="Use this section for readers, event RSVPs, corporate wellness inquiries, sponsor asks, or media introductions."
+        title="Get featured, share news, or just say hi."
+        text="For readers, studios, brands, event hosts, and press — one inbox, fast replies."
       />
       <div class="contact-links reveal">
         <a href={`mailto:${site.email}`} class="contact-line">
@@ -34,7 +34,7 @@ import { site } from '~/lib/site'
         For launch speed, route interest through one inbox. Segment later by event, sponsor,
         press, and newsletter.
       </p>
-      <NewsletterForm client:load compact source="home-contact" />
+      <NewsletterForm client:only="react" compact source="home-contact" />
     </aside>
   </div>
 </section>

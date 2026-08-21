@@ -1,52 +1,38 @@
 {
   "campaign": "newsletter",
-  "title": "The Fit Girl Things Newsletter",
-  "description": "Weekly wellness edits, event drops, and product finds — the newsletter girls actually forward to the group chat. Join 1,000+ readers.",
+  "title": "Fit Girl Insider",
+  "description": "Join Fit Girl Insider — studio openings, industry news, and wellness finds from Miami's fitness scene, before anyone else sees it.",
   "blocks": [
     {
       "type": "Hero",
-      "eyebrow": "Join 1,000+ readers",
-      "title": "The newsletter girls forward to the group chat.",
-      "subtitle": "Weekly (or biweekly) drops: wellness culture, event invitations, beauty picks, fit-girl edits, and what to actually try next. No fluff. No spam. Just the good stuff.",
-      "primaryCta": { "label": "Join the list", "href": "/#newsletter" },
-      "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80",
-      "imageAlt": "Curated beauty and wellness flat lay"
+      "eyebrow": "Fit Girl Insider",
+      "title": "Get it first, while it's still hot.",
+      "subtitle": "Studio openings before they're public, industry news, wellness finds, and trainer spotlights — straight to your inbox, before anyone else sees it.",
+      "primaryCta": { "label": "Join the Insider list", "href": "/#newsletter" },
+      "image": "/uploads/migrated/logo.webp",
+      "imageAlt": "Fit Girl Things"
     },
     {
       "type": "FeatureTriad",
       "eyebrow": "What's inside",
-      "title": "Three sections. All curated. All by real editors.",
+      "title": "Five categories. One inbox.",
       "items": [
-        { "kicker": "The Feed", "title": "Editorial stories", "text": "Culture pieces, trend breakdowns, and the wellness content you actually want to read on Sunday morning." },
-        { "kicker": "Events", "title": "First-access drops", "text": "Newsletter subscribers get invited to city events 48 hours before public release. Free RSVP." },
-        { "kicker": "Finds", "title": "Editor-approved picks", "text": "Products, studios, and experiences that earned their place. Nothing sponsored. Nothing padded." }
-      ]
-    },
-    {
-      "type": "SocialProof",
-      "eyebrow": "Why readers stay",
-      "stats": [
-        { "value": "68%", "label": "average newsletter open rate" },
-        { "value": "0", "label": "sponsored content in the last 6 months" },
-        { "value": "12min", "label": "average read time per issue" }
-      ],
-      "quotes": [
-        { "quote": "The only wellness newsletter that hasn't made me unsubscribe. Real recs, no diet culture, no pastel bullshit.", "author": "Reader, Miami" },
-        { "quote": "I forward this to my group chat every Sunday. It's just that good.", "author": "Reader, LA" }
+        { "kicker": "Spotted", "title": "New before it's news", "text": "Studio and brand openings around Miami, first." },
+        { "kicker": "Fit Girl News", "title": "The stories worth knowing", "text": "Fitness and wellness industry news, without the noise." },
+        { "kicker": "Fit Girl Find", "title": "Curated, not sponsored", "text": "Product picks and gym-bag essentials, actually tested." }
       ]
     },
     {
       "type": "Guarantee",
       "title": "Unsubscribe in one click, anytime.",
-      "body": "We don't do 'are you sure?' friction. If you want out, you're out. No make-up campaigns, no farewell manipulation. If it's not for you, we'd rather you left cleanly."
+      "body": "No 'are you sure?' friction. If you want out, you're out."
     },
     {
       "type": "CloseCTA",
-      "eyebrow": "One click. One good newsletter.",
-      "title": "Get the next issue.",
-      "subtitle": "You'll get the current issue in your inbox within 24 hours.",
-      "cta": { "label": "Join the newsletter", "href": "/#newsletter" },
-      "reassurance": "No spam, no resale, no drama."
+      "eyebrow": "One click. One good list.",
+      "title": "Join Fit Girl Insider.",
+      "cta": { "label": "Join the Insider list", "href": "/#newsletter" },
+      "reassurance": "No spam, no resale."
     }
   ]
 }

@@ -5,7 +5,7 @@ const articles = defineCollection({
   schema: z.object({
     title: z.string(),
     excerpt: z.string(),
-    category: z.enum(['Wellness', 'Culture', 'Fitness', 'Events', 'Beauty', 'Found']),
+    category: z.enum(['Spotted', 'Fit Girl News', 'Wellness', 'Fit Girl Find', 'Fit Girls']),
     kicker: z.string().optional(),
     image: z.string(),
     imageMobile: z.string().optional(),
@@ -16,25 +16,6 @@ const articles = defineCollection({
     readingMinutes: z.number().optional(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
-  }),
-})
-
-const events = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    place: z.string(),
-    summary: z.string(),
-    date: z.coerce.date(),
-    dateLabelMonth: z.string(),
-    dateLabelDay: z.string(),
-    image: z.string().optional(),
-    imageAlt: z.string().optional(),
-    capacity: z.number().optional(),
-    price: z.string().optional(),
-    hostedBy: z.string().default('Fit Girl Things'),
-    draft: z.boolean().default(false),
-    highlights: z.array(z.string()).default([]),
   }),
 })
 
@@ -143,5 +124,5 @@ const landing = defineCollection({
   }),
 })
 
-export const collections = { articles, events, landing }
+export const collections = { articles, landing }
 export type LandingBlock = z.infer<typeof landingBlockSchema>

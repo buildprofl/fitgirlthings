@@ -19,10 +19,8 @@ const year = new Date().getFullYear()
 
     <div class="footer-col">
       <span class="col-title">Read</span>
-      <a href="/feed">The Feed</a>
-      <a href="/events">Events</a>
-      <a href="/#partners">Partner with us</a>
-      <a href="/#about">About</a>
+      {nav.slice(0, 5).map((item) => <a href={item.href}>{item.label}</a>)}
+      <a href="/#partners">Work with us</a>
     </div>
 
     <div class="footer-col">

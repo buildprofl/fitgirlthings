@@ -2,7 +2,15 @@
 import { nav, site } from '~/lib/site'
 
 const currentPath = Astro.url.pathname
+const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
 ---
+
+<div class="masthead-bar">
+  <div class="container masthead-inner">
+    <span class="masthead-date">{today}</span>
+    <a href={site.instagram} target="_blank" rel="noreferrer" class="masthead-social">{site.handle}</a>
+  </div>
+</div>
 
 <header class="topbar">
   <div class="container nav-wrap">
@@ -56,6 +64,37 @@ const currentPath = Astro.url.pathname
 </header>
 
 <style>
+  .masthead-bar {
+    background: var(--text);
+    color: color-mix(in oklab, var(--bg) 88%, transparent);
+  }
+
+  .masthead-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  .masthead-date {
+    opacity: 0.75;
+  }
+
+  .masthead-social {
+    color: inherit;
+    font-weight: 600;
+    opacity: 0.9;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+  .masthead-social:hover { opacity: 1; }
+
+  @media (max-width: 640px) {
+    .masthead-date { display: none; }
+    .masthead-inner { justify-content: flex-end; }
+  }
+
   .topbar {
     position: sticky;
     top: 0;

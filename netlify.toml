@@ -12,7 +12,7 @@
   framework = "#custom"
 
 # Netlify Forms auto-detection needs a static form in the built HTML.
-# BaseLayout.astro renders a hidden static form for newsletter + rsvp
+# BaseLayout.astro renders hidden static forms (newsletter, partner-inquiry)
 # so Netlify's post-processor sees them at deploy time.
 
 [[headers]]
@@ -35,13 +35,17 @@
 
 # Old React-SPA fallback removed — Astro emits real static files per route.
 # Netlify Identity for /admin still handled by widget in admin/index.html.
-
-[[redirects]]
-  from = "/blog/*"
-  to = "/feed/:splat"
-  status = 301
+#
+# Category-based article URLs (/spotted/*, /fit-girl-news/*, /wellness/*,
+# /fitgirlfind/*, /fit-girls/*) intentionally mirror the prior Squarespace
+# site's URL structure — no legacy redirects needed for those paths.
 
 [[redirects]]
   from = "/newsletter"
+  to = "/#newsletter"
+  status = 301
+
+[[redirects]]
+  from = "/insider"
   to = "/#newsletter"
   status = 301

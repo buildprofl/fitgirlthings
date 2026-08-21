@@ -1,0 +1,127 @@
+---
+import { getCollection } from 'astro:content'
+import { categories, categorySlug, categoryColor } from '~/lib/site'
+
+const all = await getCollection('articles', ({ data }) => !data.draft)
+
+const rows = categories.map((cat) => {
+  const items = all
+    .filter((a) => a.data.category === cat.label)
+    .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime())
+    .slice(0, 3)
+  return { ...cat, items }
+}).filter((row) => row.items.length > 0)
+---
+
+{rows.map((row, rowIndex) => (
+  <section class="category-row section tight" class:list={[rowIndex % 2 === 1 && 'soft']}>
+    <div class="container">
+      <div class="row-header reveal">
+        <div>
+          <span class="eyebrow" style={`--kicker-color: ${categoryColor(row.label)}`}>{row.label}</span>
+          <h2>{row.description}</h2>
+        </div>
+        <a href={`/${row.slug}`} class="text-link">See all {row.label}</a>
+      </div>
+      <div class="row-grid">
+        {row.items.map((item, i) => (
+          <a href={`/${categorySlug(item.data.category)}/${item.slug}`} class="row-card reveal" style={`transition-delay: ${i * 60}ms; --cat-accent: ${categoryColor(row.label)}`}>
+            <div class="row-image reveal-image">
+              <img
+                src={item.data.image}
+                alt={item.data.imageAlt ?? item.data.title}
+                loading="lazy"
+                decoding="async"
+                width="500"
+                height="360"
+              />
+            </div>
+            <div class="row-copy">
+              <h3>{item.data.title}</h3>
+              <time datetime={item.data.publishedAt.toISOString()}>
+                {item.data.publishedAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+              </time>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+))}
+
+<style>
+  .row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .row-header h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+    letter-spacing: -0.02em;
+    margin: 0.4rem 0 0;
+    font-weight: 600;
+    max-width: 44ch;
+  }
+
+  .row-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.1rem;
+  }
+
+  .row-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    color: inherit;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: transform var(--dur-med) var(--ease-out);
+  }
+  .row-card:hover { transform: translateY(-3px); }
+
+  .row-image {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+  }
+  .row-image::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 3px;
+    background: var(--cat-accent, var(--accent-strong));
+  }
+  .row-image img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    transition: transform 500ms var(--ease-out);
+  }
+  .row-card:hover .row-image img { transform: scale(1.06); }
+
+  .row-copy h3 {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin: 0;
+  }
+  .row-copy time {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 900px) {
+    .row-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .row-grid { grid-template-columns: 1fr; }
+  }
+</style>

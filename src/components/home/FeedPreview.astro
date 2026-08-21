@@ -1,6 +1,7 @@
 ---
 import SectionHeader from '~/components/ui/SectionHeader.astro'
 import { getCollection } from 'astro:content'
+import { categorySlug, categoryColor } from '~/lib/site'
 
 const all = await getCollection('articles', ({ data }) => !data.draft)
 const sorted = all.sort(
@@ -10,22 +11,20 @@ const lead = sorted[0]
 const rest = sorted.slice(1, 7)
 ---
 
-<section id="feed" class="feed section">
+<section id="featured" class="feed section">
   <div class="container">
     <SectionHeader
-      eyebrow="The Feed"
-      title="Editorial magazine energy, structured for growth."
-      text="Stories, categories, and repeatable formats that scale into a true publication."
+      eyebrow="Featured"
+      title="What Miami's fit girls are talking about right now."
+      text="Studio openings, industry news, wellness finds, and the women shaping it all — updated as it happens."
     />
 
     <div class="feed-layout">
       {lead && (
-        <a href={`/feed/${lead.slug}`} class="lead-story reveal">
+        <a href={`/${categorySlug(lead.data.category)}/${lead.slug}`} class="lead-story reveal">
           <div class="lead-image reveal-image">
             <img
               src={lead.data.image}
-              srcset={`${lead.data.imageMobile ?? lead.data.image} 375w, ${lead.data.image} 900w`}
-              sizes="(max-width: 820px) 100vw, 60vw"
               alt={lead.data.imageAlt ?? lead.data.title}
               loading="lazy"
               decoding="async"
@@ -34,7 +33,7 @@ const rest = sorted.slice(1, 7)
             />
           </div>
           <div class="lead-copy">
-            <span class="mini-kicker">{lead.data.kicker ?? 'Lead Story'}</span>
+            <span class="mini-kicker" style={`--kicker-color: ${categoryColor(lead.data.category)}`}>{lead.data.kicker ?? lead.data.category}</span>
             <h3>{lead.data.title}</h3>
             <p>{lead.data.excerpt}</p>
             <span class="text-link">Read the story</span>
@@ -44,12 +43,10 @@ const rest = sorted.slice(1, 7)
 
       <div class="feed-grid">
         {rest.map((item, i) => (
-          <a href={`/feed/${item.slug}`} class="feed-card reveal" style={`transition-delay: ${i * 60}ms`}>
+          <a href={`/${categorySlug(item.data.category)}/${item.slug}`} class="feed-card reveal" style={`transition-delay: ${i * 60}ms`}>
             <div class="feed-image reveal-image">
               <img
                 src={item.data.image}
-                srcset={`${item.data.imageMobile ?? item.data.image} 320w, ${item.data.image} 700w`}
-                sizes="(max-width: 820px) 100vw, (max-width: 1080px) 50vw, 33vw"
                 alt={item.data.imageAlt ?? item.data.title}
                 loading="lazy"
                 decoding="async"
@@ -58,17 +55,13 @@ const rest = sorted.slice(1, 7)
               />
             </div>
             <div class="feed-copy">
-              <span class="mini-kicker">{item.data.category}</span>
+              <span class="mini-kicker" style={`--kicker-color: ${categoryColor(item.data.category)}`}>{item.data.category}</span>
               <h3>{item.data.title}</h3>
               <p>{item.data.excerpt}</p>
               <span class="text-link">Open story</span>
             </div>
           </a>
         ))}
-      </div>
-
-      <div class="feed-more">
-        <a href="/feed" class="button secondary">See all stories</a>
       </div>
     </div>
   </div>
@@ -188,12 +181,6 @@ const rest = sorted.slice(1, 7)
     color: var(--muted);
     line-height: var(--leading-relaxed);
     font-size: 0.95rem;
-  }
-
-  .feed-more {
-    display: flex;
-    justify-content: center;
-    margin-top: 1.5rem;
   }
 
   @media (max-width: 1080px) {

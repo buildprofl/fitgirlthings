@@ -36,29 +36,42 @@ test('footer links resolve to real pages', async ({ page }) => {
   }
 })
 
-test('feed cards on home link to real /feed/[slug] pages', async ({ page }) => {
+test('featured article cards on home link to real category article pages', async ({ page }) => {
   await page.goto('/')
-  const cardLinks = await page.locator('.feed .feed-card, .feed .lead-story').evaluateAll((els) =>
-    els.map((el) => (el as HTMLAnchorElement).getAttribute('href')!).filter((h) => h?.startsWith('/feed/'))
+  const cardLinks = await page.locator('#featured .feed-card, #featured .lead-story').evaluateAll((els) =>
+    els.map((el) => (el as HTMLAnchorElement).getAttribute('href')!).filter(Boolean)
   )
   expect(cardLinks.length).toBeGreaterThan(3)
 
   for (const href of cardLinks) {
     const res = await page.request.get(href)
-    expect(res.status(), `feed card link ${href} broken`).toBe(200)
+    expect(res.status(), `featured card link ${href} broken`).toBe(200)
   }
 })
 
-test('event cards on home link to real /events/[slug] pages', async ({ page }) => {
+test('category row cards on home link to real article pages', async ({ page }) => {
   await page.goto('/')
-  const eventLinks = await page.locator('#events .event-card').evaluateAll((els) =>
-    els.map((el) => (el as HTMLAnchorElement).getAttribute('href')!).filter((h) => h?.startsWith('/events/'))
+  const rowLinks = await page.locator('.row-card').evaluateAll((els) =>
+    els.map((el) => (el as HTMLAnchorElement).getAttribute('href')!).filter(Boolean)
   )
-  expect(eventLinks.length).toBeGreaterThan(2)
+  expect(rowLinks.length).toBeGreaterThan(5)
 
-  for (const href of eventLinks) {
+  for (const href of rowLinks) {
     const res = await page.request.get(href)
-    expect(res.status(), `event card link ${href} broken`).toBe(200)
+    expect(res.status(), `category row link ${href} broken`).toBe(200)
+  }
+})
+
+test('hero category pills link to real category pages', async ({ page }) => {
+  await page.goto('/')
+  const pillLinks = await page.locator('.hero-cat-pill').evaluateAll((els) =>
+    els.map((el) => (el as HTMLAnchorElement).getAttribute('href')!)
+  )
+  expect(pillLinks.length).toBe(5)
+
+  for (const href of pillLinks) {
+    const res = await page.request.get(href)
+    expect(res.status(), `hero category pill ${href} broken`).toBe(200)
   }
 })
 
@@ -67,9 +80,9 @@ test('CTA buttons in hero go to real destinations', async ({ page }) => {
   const heroButtons = page.locator('.hero .hero-actions a')
   await expect(heroButtons).toHaveCount(2)
 
-  const feedBtn = heroButtons.filter({ hasText: /read the feed/i })
-  await feedBtn.click()
-  await expect(page).toHaveURL(/\/feed/)
+  const spottedBtn = heroButtons.filter({ hasText: /spotted/i })
+  await spottedBtn.click()
+  await expect(page).toHaveURL(/\/spotted/)
 })
 
 test('mobile menu opens, closes on link click', async ({ browser }) => {
@@ -83,8 +96,8 @@ test('mobile menu opens, closes on link click', async ({ browser }) => {
   await toggle.click()
   await expect(menu).toHaveClass(/open/)
 
-  const link = menu.locator('a[href="/feed"]')
+  const link = menu.locator('a[href="/spotted"]')
   await link.click()
-  await expect(page).toHaveURL(/\/feed/)
+  await expect(page).toHaveURL(/\/spotted/)
   await context.close()
 })
