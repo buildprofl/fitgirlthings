@@ -52,7 +52,7 @@ import { site } from '~/lib/site'
           <span class="mini-kicker">Meanwhile</span>
           <h3>Join Fit Girl Insider.</h3>
           <p>Studio openings, industry news, and product finds — before anyone else sees it.</p>
-          <NewsletterForm client:load compact source="contact-page" />
+          <NewsletterForm client:only="react" compact source="contact-page" />
         </div>
       </aside>
     </div>

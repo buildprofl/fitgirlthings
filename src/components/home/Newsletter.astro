@@ -18,7 +18,7 @@ import NewsletterForm from '~/components/react/NewsletterForm.jsx'
       </ul>
     </div>
     <div class="newsletter-panel reveal">
-      <NewsletterForm client:load source="home-insider" />
+      <NewsletterForm client:only="react" source="home-insider" />
       <p class="micro-copy">✦ Join the girls who see it first.</p>
     </div>
   </div>
