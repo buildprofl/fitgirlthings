@@ -1,0 +1,36 @@
+---
+---
+
+<section class="quote-banner section tight">
+  <div class="container">
+    <div class="quote-inner reveal">
+      <span class="eyebrow">Brand line</span>
+      <h2>
+        Your exclusive pass to the fittest, finest, and most in-the-know space on the internet.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quote-inner {
+    border-radius: calc(var(--radius-xl) + 6px);
+    padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 3vw, 2rem);
+    background:
+      radial-gradient(circle at top left, var(--accent-glow), transparent 40%),
+      linear-gradient(180deg, var(--surface), var(--surface-soft));
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+  }
+
+  .quote-inner h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3.8rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 20ch;
+    margin: 0.7rem auto 0;
+    font-weight: 500;
+  }
+</style>

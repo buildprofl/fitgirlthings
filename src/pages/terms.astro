@@ -1,0 +1,47 @@
+---
+import LegalLayout from '~/layouts/LegalLayout.astro'
+const updated = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+---
+
+<LegalLayout title="Terms of Service" description="The terms of use for the Fit Girl Things website and services." updated={updated}>
+  <h2>1. Agreement to Terms</h2>
+  <p>By accessing and using the Fit Girl Things website, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+
+  <h2>2. Use License</h2>
+  <p>Permission is granted to temporarily download one copy of the materials on Fit Girl Things for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+  <ul>
+    <li>Modify or copy the materials</li>
+    <li>Use the materials for any commercial purpose or for any public display</li>
+    <li>Attempt to decompile or reverse engineer any software contained on the Site</li>
+    <li>Remove any copyright or other proprietary notations from the materials</li>
+    <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
+    <li>Engage in any form of scraping or automated data collection</li>
+  </ul>
+
+  <h2>3. Disclaimer</h2>
+  <p>The materials on Fit Girl Things are provided on an 'as is' basis. Fit Girl Things makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+
+  <h2>4. Limitations of Liability</h2>
+  <p>In no event shall Fit Girl Things or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Fit Girl Things.</p>
+
+  <h2>5. Newsletter Subscription</h2>
+  <p>By subscribing to our newsletter, you agree to receive regular email communications from Fit Girl Things about wellness content, events, and updates. You may unsubscribe at any time by following the unsubscribe link in our emails.</p>
+
+  <h2>6. Event Attendance</h2>
+  <p>Event registration constitutes acceptance of event terms. Fit Girl Things reserves the right to require valid ID and comply with venue policies. Tickets are non-refundable unless otherwise stated.</p>
+
+  <h2>7. Sponsored Content & Partnerships</h2>
+  <p>Some content may include sponsored material or brand partnerships. We disclose such partnerships clearly. Opinions expressed by contributors are their own and do not necessarily reflect Fit Girl Things' views.</p>
+
+  <h2>8. Intellectual Property Rights</h2>
+  <p>All content on Fit Girl Things, including text, graphics, logos, images, and software, is the property of Fit Girl Things or its content suppliers and is protected by international copyright laws.</p>
+
+  <h2>9. User-Generated Content</h2>
+  <p>If you submit any content, comments, or materials to Fit Girl Things, you grant us a non-exclusive, worldwide, royalty-free license to use, reproduce, modify, and distribute such content.</p>
+
+  <h2>10. Modification of Terms</h2>
+  <p>Fit Girl Things may revise these terms at any time without notice. By continuing to use the Site after revisions are made, you agree to the modified terms.</p>
+
+  <h2>11. Contact Information</h2>
+  <p>For questions about these terms, contact us at: <a href="mailto:hello@fitgirlthings.com">hello@fitgirlthings.com</a></p>
+</LegalLayout>

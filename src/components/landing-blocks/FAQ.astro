@@ -1,0 +1,86 @@
+---
+interface Props {
+  eyebrow?: string
+  title?: string
+  items: { q: string; a: string }[]
+}
+const { eyebrow, title, items } = Astro.props
+---
+
+<section class="lb-faq section">
+  <div class="container lb-faq-wrap">
+    <div class="reveal">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      {title && <h2>{title}</h2>}
+    </div>
+    <div class="lb-faq-list">
+      {items.map((item, i) => (
+        <details class="lb-faq-item reveal" style={`transition-delay: ${i * 60}ms`}>
+          <summary>
+            <span>{item.q}</span>
+            <span class="chev" aria-hidden="true">+</span>
+          </summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .lb-faq-wrap {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .lb-faq-wrap h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    letter-spacing: -0.02em;
+    margin: 0.5rem 0 0;
+  }
+  .lb-faq-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .lb-faq-item {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    padding: 0.5rem 1.15rem;
+    transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  }
+  .lb-faq-item[open] {
+    border-color: var(--accent-strong);
+    box-shadow: var(--shadow-soft);
+  }
+  summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 0;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+    gap: 1rem;
+    font-size: 1rem;
+  }
+  summary::-webkit-details-marker { display: none; }
+  .chev {
+    display: grid;
+    place-items: center;
+    width: 26px; height: 26px;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--accent-strong) 20%, transparent);
+    color: var(--accent-deep);
+    font-weight: 800;
+    transition: transform var(--dur-med) var(--ease-out);
+  }
+  .lb-faq-item[open] .chev { transform: rotate(45deg); }
+  .lb-faq-item p {
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+    margin: 0 0 0.9rem;
+    padding-top: 0.35rem;
+  }
+  @media (max-width: 900px) { .lb-faq-wrap { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,179 @@
+---
+import '~/styles/global.css'
+import Topbar from '~/components/nav/Topbar.astro'
+import Footer from '~/components/nav/Footer.astro'
+import { site } from '~/lib/site'
+
+interface Props {
+  title?: string
+  description?: string
+  image?: string
+  canonical?: string
+  type?: 'website' | 'article'
+  publishedTime?: string
+  modifiedTime?: string
+  jsonLd?: unknown
+  noindex?: boolean
+}
+
+const {
+  title,
+  description = site.defaultDescription,
+  image = site.defaultOgImage,
+  canonical,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  jsonLd,
+  noindex = false,
+} = Astro.props
+
+const pageTitle = title ? `${title} | ${site.name}` : site.defaultTitle
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site.url).href
+const ogImage = new URL(image, site.url).href
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: site.url,
+  logo: `${site.url}/og/default.png`,
+  sameAs: [site.instagram],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: site.email,
+    contactType: 'customer support',
+  },
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Theme init (runs before paint to avoid FOUC) -->
+    <script is:inline>
+      (function() {
+        try {
+          var t = localStorage.getItem('fgt-theme');
+          if (t === 'dark' || t === 'light') {
+            document.documentElement.setAttribute('data-theme', t);
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- OG / Twitter -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title ?? site.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title ?? site.name} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23ffd0d8' width='100' height='100' rx='24'/><text x='50' y='70' font-size='60' font-weight='900' text-anchor='middle' fill='%235f2942'>F</text></svg>" />
+    <meta name="theme-color" content="#fffaf8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#17111a" media="(prefers-color-scheme: dark)" />
+
+    <!-- Sitemap discovery -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Organization JSON-LD (site-wide) -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+
+    <!-- Analytics slot (server-side Netlify Analytics needs no key).
+         To wire Plausible: uncomment and set data-domain.
+         <script defer data-domain="fitgirlthings.com" src="https://plausible.io/js/script.js"></script>
+    -->
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell">
+      <Topbar />
+
+      <main id="main">
+        <slot />
+      </main>
+
+      <Footer />
+    </div>
+
+    <!-- Netlify Forms detection — hidden static duplicates so the deploy
+         post-processor sees the form-names at build time. Real forms in the
+         React islands submit to these same names via POST + urlencoded body.
+    -->
+    <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden data-netlify-detection>
+      <input type="email" name="email" />
+      <input type="text" name="source" />
+      <input type="text" name="bot-field" />
+    </form>
+    <form name="rsvp" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden data-netlify-detection>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="event" />
+      <input type="text" name="phone" />
+      <input type="text" name="notes" />
+      <input type="text" name="bot-field" />
+    </form>
+    <form name="partner-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden data-netlify-detection>
+      <input type="text" name="name" />
+      <input type="text" name="company" />
+      <input type="email" name="email" />
+      <input type="text" name="budget" />
+      <textarea name="message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
+
+    <!-- Reveal-on-scroll observer, respects prefers-reduced-motion -->
+    <script>
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const revealNodes = document.querySelectorAll<HTMLElement>('.reveal, .reveal-image')
+      if (prefersReduced || revealNodes.length === 0) {
+        revealNodes.forEach((n) => n.classList.add('in'))
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in')
+                io.unobserve(entry.target)
+              }
+            })
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+        )
+        revealNodes.forEach((n) => io.observe(n))
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+---
+const items = [
+  'Newsletter-first',
+  'Editorial beauty',
+  'Fitness culture',
+  'Wellness trends',
+  'Community events',
+  'Brand collaborations',
+  'Miami energy',
+]
+const track = [...items, ...items]
+---
+
+<section class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    {track.map((label) => <span>{label}</span>)}
+  </div>
+</section>
+
+<style>
+  .marquee-strip {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in oklab, var(--surface) 55%, transparent);
+    padding: 0.5rem 0;
+  }
+
+  .marquee-track {
+    white-space: nowrap;
+    padding: 0.6rem 0;
+    display: inline-flex;
+    gap: 2.4rem;
+    min-width: 200%;
+    animation: marquee 26s linear infinite;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .marquee-track span::after {
+    content: '•';
+    margin-left: 2.4rem;
+    color: var(--accent);
+  }
+
+  .marquee-strip:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+</style>

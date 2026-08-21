@@ -1,0 +1,67 @@
+---
+interface Props {
+  eyebrow?: string
+  problem: string
+  agitation: string
+  solution: string
+}
+const { eyebrow, problem, agitation, solution } = Astro.props
+---
+
+<section class="lb-pas section soft">
+  <div class="container">
+    {eyebrow && <span class="eyebrow reveal">{eyebrow}</span>}
+    <div class="lb-pas-grid">
+      <div class="lb-pas-card problem reveal">
+        <span class="tag">The problem</span>
+        <p>{problem}</p>
+      </div>
+      <div class="lb-pas-card agitation reveal" style="transition-delay: 100ms">
+        <span class="tag">Why it hurts</span>
+        <p>{agitation}</p>
+      </div>
+      <div class="lb-pas-card solution reveal" style="transition-delay: 200ms">
+        <span class="tag">What changes</span>
+        <p>{solution}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lb-pas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.25rem;
+  }
+  .lb-pas-card {
+    padding: 1.75rem;
+    border-radius: var(--radius-lg);
+    background: color-mix(in oklab, var(--surface) 90%, transparent);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+  .lb-pas-card p {
+    margin: 0.65rem 0 0;
+    color: var(--text);
+    line-height: var(--leading-relaxed);
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .tag {
+    display: inline-block;
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 800;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+  }
+  .problem .tag { background: color-mix(in oklab, #b45360 22%, transparent); color: #b45360; }
+  .agitation .tag { background: color-mix(in oklab, #b47c53 22%, transparent); color: #b47c53; }
+  .solution .tag { background: color-mix(in oklab, #1f7a5c 22%, transparent); color: #1f7a5c; }
+  @media (max-width: 900px) { .lb-pas-grid { grid-template-columns: 1fr; } }
+</style>

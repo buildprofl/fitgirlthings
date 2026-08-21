@@ -1,0 +1,81 @@
+---
+import SectionHeader from '~/components/ui/SectionHeader.astro'
+---
+
+<section id="about" class="about section soft">
+  <div class="container about-grid">
+    <div>
+      <SectionHeader
+        eyebrow="About the collective"
+        title="For the girls who want substance, style, and a better filter on wellness."
+        text="Fit Girl Things speaks to women who train, recover, experiment, socialize, and want a trusted source that feels chic instead of generic."
+      />
+      <div class="about-copy reveal">
+        <p>
+          This brand sits at the intersection of editorial content, beauty-conscious wellness,
+          and in-person event culture. It is for the girl who wants to know which class is
+          worth booking, which product is worth buying, and where the next good gathering is.
+        </p>
+        <p>
+          The tone is polished, playful, feminine, current, and selective. Not clinical.
+          Not bro fitness. Not generic wellness fluff.
+        </p>
+      </div>
+    </div>
+
+    <aside class="about-panel reveal">
+      <h3>What readers come for</h3>
+      <ul>
+        <li>Wellness trends with better taste</li>
+        <li>Editorial picks and monthly finds</li>
+        <li>Event drops and real-world community</li>
+        <li>Expert-backed insight without the lecture</li>
+        <li>Beauty, recovery, movement, and lifestyle in one place</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .about-copy p {
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+    font-size: var(--fs-body);
+    margin-bottom: 1rem;
+  }
+
+  .about-panel {
+    padding: 1.75rem;
+    border-radius: var(--radius-lg);
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .about-panel h3 {
+    margin: 0 0 0.85rem;
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+  }
+
+  .about-panel ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--muted);
+    line-height: 1.85;
+  }
+
+  .about-panel li { margin-bottom: 0.35rem; }
+
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,56 @@
+---
+interface Props {
+  eyebrow?: string
+  headline: string
+  scarcity?: string
+  deadline?: string
+}
+const { eyebrow, headline, scarcity, deadline } = Astro.props
+---
+
+<section class="lb-urgency section tight">
+  <div class="container">
+    <div class="lb-urgency-bar reveal">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <p class="headline">{headline}</p>
+      <div class="lb-urgency-meta">
+        {scarcity && <span class="chip scarcity">{scarcity}</span>}
+        {deadline && <span class="chip deadline">{deadline}</span>}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lb-urgency-bar {
+    padding: 1.5rem 1.75rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(90deg, var(--accent-strong), var(--accent-deep));
+    color: #fff;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .lb-urgency-bar .eyebrow { color: #fff; opacity: 0.85; }
+  .headline {
+    margin: 0.2rem 0 0;
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+    letter-spacing: -0.01em;
+    flex: 1;
+    min-width: 240px;
+  }
+  .lb-urgency-meta { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .chip {
+    padding: 0.55rem 0.9rem;
+    background: rgba(255,255,255,0.18);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(6px);
+  }
+</style>

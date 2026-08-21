@@ -1,0 +1,133 @@
+---
+import SectionHeader from '~/components/ui/SectionHeader.astro'
+import { getCollection } from 'astro:content'
+
+const all = await getCollection('events', ({ data }) => !data.draft)
+const upcoming = all
+  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime())
+  .slice(0, 6)
+---
+
+<section id="events" class="events section">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Events"
+      title="Built for attendance, exposure, and better brand moments."
+      text="The events strategy powers the content, the social proof, and the sponsor value."
+    />
+    <div class="events-grid">
+      {upcoming.map((event, i) => (
+        <a href={`/events/${event.slug}`} class="event-card reveal" style={`transition-delay: ${i * 70}ms`}>
+          <div class="event-date">
+            <span class="event-month">{event.data.dateLabelMonth}</span>
+            <span class="event-day">{event.data.dateLabelDay}</span>
+          </div>
+          <div class="event-copy">
+            <h3>{event.data.title}</h3>
+            <span class="event-place">{event.data.place}</span>
+            <p>{event.data.summary}</p>
+            <span class="text-link">Request details</span>
+          </div>
+        </a>
+      ))}
+    </div>
+    <div class="events-more">
+      <a href="/events" class="button secondary">See all events</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .event-card {
+    padding: 1.4rem;
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    border-radius: var(--radius-lg);
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+    color: inherit;
+    transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out);
+  }
+
+  .event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+
+  .event-date {
+    min-width: 82px;
+    min-height: 82px;
+    padding: 0.65rem;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffd7de, #ffedf0);
+    color: #6e3148;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1;
+    gap: 0.15rem;
+  }
+
+  .event-month {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+
+  .event-day {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .event-copy { flex: 1; min-width: 0; }
+
+  .event-copy h3 {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .event-place {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .event-copy p {
+    margin: 0 0 0.5rem;
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+    font-size: 0.95rem;
+  }
+
+  .events-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.75rem;
+  }
+
+  @media (max-width: 1080px) {
+    .events-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .events-grid { grid-template-columns: 1fr; }
+  }
+</style>

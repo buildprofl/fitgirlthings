@@ -1,0 +1,74 @@
+---
+interface Props {
+  eyebrow?: string
+  title: string
+  subtitle?: string
+  primaryCta?: { label: string; href: string }
+  secondaryCta?: { label: string; href: string }
+  image?: string
+  imageAlt?: string
+}
+const { eyebrow, title, subtitle, primaryCta, secondaryCta, image, imageAlt } = Astro.props
+---
+
+<section class="lb-hero section">
+  <div class="container lb-grid">
+    <div class="lb-copy reveal">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h1>{title}</h1>
+      {subtitle && <p>{subtitle}</p>}
+      <div class="lb-actions">
+        {primaryCta && <a href={primaryCta.href} class="button primary">{primaryCta.label}</a>}
+        {secondaryCta && <a href={secondaryCta.href} class="button secondary">{secondaryCta.label}</a>}
+      </div>
+    </div>
+    {image && (
+      <div class="lb-image reveal-image">
+        <img src={image} alt={imageAlt ?? ''} loading="eager" fetchpriority="high" width="900" height="900" />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .lb-hero { padding: clamp(2.5rem, 6vw, 5rem) 0; position: relative; }
+  .lb-hero::before {
+    content: '';
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    background: var(--accent-glow);
+    filter: blur(70px);
+    top: 5%;
+    right: 4%;
+    border-radius: 999px;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .lb-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; align-items: center; }
+  .lb-copy h1 {
+    font-family: var(--font-serif);
+    font-size: var(--fs-display);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    max-width: 14ch;
+    margin: 0.6rem 0 1rem;
+    font-weight: 600;
+  }
+  .lb-copy p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    line-height: var(--leading-relaxed);
+    max-width: 52ch;
+    margin: 0 0 1.6rem;
+  }
+  .lb-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .lb-image {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    aspect-ratio: 1 / 1;
+  }
+  .lb-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (max-width: 900px) { .lb-grid { grid-template-columns: 1fr; } .lb-image { aspect-ratio: 4/3; } }
+</style>

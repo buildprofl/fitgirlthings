@@ -1,0 +1,55 @@
+---
+interface Props {
+  eyebrow?: string
+  title?: string
+  items: { kicker: string; title: string; text: string }[]
+}
+const { eyebrow, title, items } = Astro.props
+---
+
+<section class="lb-triad section">
+  <div class="container">
+    <div class="section-header reveal">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      {title && <h2>{title}</h2>}
+    </div>
+    <div class="lb-triad-grid">
+      {items.map((item, i) => (
+        <article class="lb-triad-card reveal" style={`transition-delay: ${i * 70}ms`}>
+          <span class="mini-kicker">{item.kicker}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .lb-triad-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+  .lb-triad-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--dur-med) var(--ease-out);
+  }
+  .lb-triad-card:hover { transform: translateY(-4px); }
+  .lb-triad-card h3 {
+    margin: 0.6rem 0 0.55rem;
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+  }
+  .lb-triad-card p {
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+</style>

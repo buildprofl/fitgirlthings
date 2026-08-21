@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow admin UI from indexes
+Disallow: /admin/
+Disallow: /_astro/
+
+Sitemap: https://fitgirlthings.com/sitemap-index.xml

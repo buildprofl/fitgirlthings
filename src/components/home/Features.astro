@@ -1,0 +1,94 @@
+---
+import SectionHeader from '~/components/ui/SectionHeader.astro'
+
+const cards = [
+  {
+    kicker: "Editor's Note",
+    title: "Your one and only source for all things fit in a girl's world",
+    text: 'Fitness, wellness, beauty, trends, and community — curated with style, clarity, and a real point of view.',
+  },
+  {
+    kicker: "What's Inside",
+    title: 'The newsletter girls actually forward to the group chat',
+    text: 'Trend breakdowns, wellness picks, event drops, product finds, expert-backed insight, and what is actually worth your time.',
+  },
+  {
+    kicker: 'Why It Works',
+    title: 'An editorial media brand with real-world energy',
+    text: 'Fit Girl Things blends digital publishing, city-based events, community culture, and sponsor-ready experiences.',
+  },
+]
+---
+
+<section class="features section">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Built from the brand"
+      title="Not another fitness site. A media-driven wellness world."
+      text="Editorial magazine first, community platform second, sponsor-ready event brand third."
+    />
+    <div class="feature-grid">
+      {cards.map((card, i) => (
+        <article class="feature-card reveal" style={`transition-delay: ${i * 80}ms`}>
+          <span class="mini-kicker">{card.kicker}</span>
+          <h3>{card.title}</h3>
+          <p>{card.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .feature-card {
+    padding: 1.75rem;
+    border-radius: var(--radius-lg);
+    background: color-mix(in oklab, var(--surface) 85%, transparent);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-strong), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-med) var(--ease-out);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: var(--line-strong);
+  }
+
+  .feature-card:hover::before { transform: scaleX(1); }
+
+  .feature-card h3 {
+    margin: 0.8rem 0 0.75rem;
+    font-size: 1.3rem;
+    line-height: 1.3;
+  }
+
+  .feature-card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  @media (max-width: 900px) {
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+import LegalLayout from '~/layouts/LegalLayout.astro'
+const updated = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+---
+
+<LegalLayout title="Disclaimer" description="Important information about the health, wellness, and product content on Fit Girl Things." updated={updated}>
+  <h2>1. Health & Wellness Disclaimer</h2>
+  <p>The content on Fit Girl Things, including articles, recommendations, and advice, is for informational and educational purposes only. It is not intended as medical advice or a substitute for professional medical consultation.</p>
+  <p><strong>Always consult with a qualified healthcare provider, fitness professional, or licensed counselor before:</strong></p>
+  <ul>
+    <li>Starting a new fitness routine or exercise program</li>
+    <li>Making significant dietary changes</li>
+    <li>Taking new supplements or products</li>
+    <li>Addressing mental health concerns</li>
+  </ul>
+
+  <h2>2. No Professional Relationship</h2>
+  <p>Reading content on Fit Girl Things does not establish a professional relationship with contributors, experts, or Fit Girl Things itself. Contributors may not have specialized credentials for topics they discuss.</p>
+
+  <h2>3. Product Recommendations</h2>
+  <p>Product mentions and recommendations are the opinions of our editorial team. We may receive affiliate commissions for certain product links, which we disclose clearly. Product recommendations are not endorsements of effectiveness or safety.</p>
+
+  <h2>4. Individual Results Vary</h2>
+  <p>Results from fitness, wellness, or beauty recommendations vary by individual. Success depends on many factors including genetics, lifestyle, consistency, and individual health.</p>
+
+  <h2>5. Third-Party Links</h2>
+  <p>Fit Girl Things provides links to external websites and services. We are not responsible for the accuracy, legality, or content of external sites. Review their terms and privacy policies separately.</p>
+
+  <h2>6. Accuracy of Information</h2>
+  <p>While we strive for accuracy, we do not guarantee that all information on Fit Girl Things is accurate, complete, or current. The wellness and fitness industry evolves rapidly, and information may become outdated.</p>
+
+  <h2>7. Event Disclaimers</h2>
+  <p>Fitness and wellness events carry inherent physical risks. Participants acknowledge these risks and assume full responsibility. Fit Girl Things is not liable for injuries sustained during events.</p>
+
+  <h2>8. Mental Health Resources</h2>
+  <p>If you are experiencing mental health challenges, please reach out to a licensed professional:</p>
+  <ul>
+    <li>National Suicide Prevention Lifeline: 988</li>
+    <li>Crisis Text Line: Text HOME to 741741</li>
+    <li>NAMI Helpline: 1-800-950-NAMI</li>
+  </ul>
+
+  <h2>9. Limitation of Liability</h2>
+  <p>Fit Girl Things is not liable for any direct, indirect, incidental, special, or consequential damages arising from the use of or inability to use content on this Site.</p>
+
+  <h2>10. Contact</h2>
+  <p>For questions about this disclaimer: <a href="mailto:hello@fitgirlthings.com">hello@fitgirlthings.com</a></p>
+</LegalLayout>

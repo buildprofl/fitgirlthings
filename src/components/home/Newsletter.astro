@@ -1,0 +1,89 @@
+---
+import NewsletterForm from '~/components/react/NewsletterForm.jsx'
+---
+
+<section id="newsletter" class="newsletter section blush">
+  <div class="container newsletter-wrap">
+    <div class="reveal">
+      <span class="eyebrow">Newsletter</span>
+      <h2>The issue everyone wants before the event sells out.</h2>
+      <p>
+        Weekly or biweekly drops covering wellness culture, event invitations, beauty
+        recommendations, fit-girl edits, trend breakdowns, and what to try next.
+      </p>
+      <ul class="perks">
+        <li>Curated event drops before public release</li>
+        <li>Editor's picks and monthly finds</li>
+        <li>Behind-the-scenes access</li>
+      </ul>
+    </div>
+    <div class="newsletter-panel reveal">
+      <NewsletterForm client:load source="home-newsletter" />
+      <p class="micro-copy">✦ Join 1,000+ fit girls — no spam, ever.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .newsletter-wrap {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .newsletter-wrap h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.6vw, 3.4rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    margin: 0.5rem 0 1rem;
+  }
+
+  .newsletter-wrap p {
+    color: var(--muted);
+    line-height: var(--leading-relaxed);
+    max-width: 46ch;
+  }
+
+  .perks {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .perks li {
+    color: var(--text);
+    font-weight: 500;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .perks li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--accent-strong);
+  }
+
+  .newsletter-panel {
+    padding: 1.75rem;
+    border-radius: var(--radius-xl);
+    background: color-mix(in oklab, var(--surface) 90%, transparent);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+
+  .micro-copy {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0.85rem 0 0;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .newsletter-wrap { grid-template-columns: 1fr; }
+  }
+</style>

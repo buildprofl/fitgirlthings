@@ -1,0 +1,95 @@
+---
+interface Tier {
+  name: string
+  price: string
+  cadence?: string
+  highlight?: boolean
+  features: string[]
+  cta: { label: string; href: string }
+}
+interface Props {
+  eyebrow?: string
+  title: string
+  tiers: Tier[]
+}
+const { eyebrow, title, tiers } = Astro.props
+---
+
+<section class="lb-price section blush">
+  <div class="container">
+    <div class="section-header center reveal">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h2>{title}</h2>
+    </div>
+    <div class="lb-price-grid">
+      {tiers.map((tier, i) => (
+        <article class:list={['lb-price-card reveal', { highlight: tier.highlight }]} style={`transition-delay: ${i * 80}ms`}>
+          {tier.highlight && <span class="popular">Most chosen</span>}
+          <span class="tier-name">{tier.name}</span>
+          <div class="tier-price">
+            <span class="value">{tier.price}</span>
+            {tier.cadence && <span class="cadence">{tier.cadence}</span>}
+          </div>
+          <ul class="tier-features">
+            {tier.features.map((f) => (
+              <li><span class="check" aria-hidden="true">✓</span>{f}</li>
+            ))}
+          </ul>
+          <a href={tier.cta.href} class:list={['button full', tier.highlight ? 'primary' : 'secondary']}>
+            {tier.cta.label}
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .lb-price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .lb-price-card {
+    padding: 1.75rem;
+    border-radius: var(--radius-xl);
+    background: color-mix(in oklab, var(--surface) 92%, transparent);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+  }
+  .lb-price-card.highlight {
+    border-color: var(--accent-strong);
+    box-shadow: var(--shadow);
+    transform: translateY(-4px);
+  }
+  .popular {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-strong);
+    color: #fff;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+  .tier-name { font-size: var(--fs-eyebrow); letter-spacing: 0.16em; text-transform: uppercase; font-weight: 800; color: var(--accent-deep); }
+  .tier-price { display: flex; align-items: baseline; gap: 0.4rem; }
+  .value { font-family: var(--font-serif); font-size: 2.6rem; letter-spacing: -0.02em; font-weight: 600; }
+  .cadence { color: var(--muted); font-size: 0.95rem; }
+  .tier-features { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; flex: 1; }
+  .tier-features li { display: flex; gap: 0.6rem; align-items: flex-start; color: var(--text); line-height: 1.45; font-size: 0.95rem; }
+  .check {
+    display: inline-grid; place-items: center;
+    width: 20px; height: 20px; border-radius: 999px;
+    background: var(--accent-strong); color: #fff;
+    font-size: 0.7rem; font-weight: 800; flex-shrink: 0; margin-top: 2px;
+  }
+</style>

@@ -1,20 +1,33 @@
 {
-  "name": "fitgirlthings-editorial-site",
+  "name": "fitgirlthings",
   "private": true,
-  "version": "0.0.1",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview --host"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview --host",
+    "astro": "astro",
+    "new:landing": "node scripts/new-landing.mjs",
+    "new:article": "node scripts/new-article.mjs",
+    "new:event": "node scripts/new-event.mjs",
+    "qa": "playwright test",
+    "qa:ui": "playwright test --ui",
+    "qa:install": "playwright install chromium"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.14",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^5.18.2",
+    "pagefind": "^1.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "terser": "^5.46.0",
-    "vite": "^5.4.10"
+    "@playwright/test": "^1.48.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1"
   }
 }
