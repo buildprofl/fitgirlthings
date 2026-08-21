@@ -1,7 +1,7 @@
 ---
 import SectionHeader from '~/components/ui/SectionHeader.astro'
 import { getCollection } from 'astro:content'
-import { categorySlug } from '~/lib/site'
+import { categorySlug, categoryColor } from '~/lib/site'
 
 const all = await getCollection('articles', ({ data }) => !data.draft)
 const sorted = all.sort(
@@ -33,7 +33,7 @@ const rest = sorted.slice(1, 7)
             />
           </div>
           <div class="lead-copy">
-            <span class="mini-kicker">{lead.data.kicker ?? lead.data.category}</span>
+            <span class="mini-kicker" style={`--kicker-color: ${categoryColor(lead.data.category)}`}>{lead.data.kicker ?? lead.data.category}</span>
             <h3>{lead.data.title}</h3>
             <p>{lead.data.excerpt}</p>
             <span class="text-link">Read the story</span>
@@ -55,7 +55,7 @@ const rest = sorted.slice(1, 7)
               />
             </div>
             <div class="feed-copy">
-              <span class="mini-kicker">{item.data.category}</span>
+              <span class="mini-kicker" style={`--kicker-color: ${categoryColor(item.data.category)}`}>{item.data.category}</span>
               <h3>{item.data.title}</h3>
               <p>{item.data.excerpt}</p>
               <span class="text-link">Open story</span>

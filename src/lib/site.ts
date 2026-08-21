@@ -5,7 +5,7 @@ export const site = {
   defaultTitle: 'Fit Girl Things | Explore Now — Get Inspired Today',
   defaultDescription:
     'Fit Girl Things covers the studios, brands, trends, and trainers shaping Miami’s fitness and wellness scene — spotted openings, industry news, wellness finds, and the women behind it all.',
-  defaultOgImage: '/og/default.png',
+  defaultOgImage: '/uploads/migrated/og-image.webp',
   handle: '@fit.girl.things',
   instagram: 'https://instagram.com/fit.girl.things',
   email: 'hello@fitgirlthings.com',
@@ -13,12 +13,16 @@ export const site = {
 } as const
 
 export const categories = [
-  { label: 'Spotted', slug: 'spotted', description: 'New studios, stores, and brand openings around Miami — first.' },
-  { label: 'Fit Girl News', slug: 'fit-girl-news', description: 'The fitness and wellness industry stories worth knowing.' },
-  { label: 'Wellness', slug: 'wellness', description: 'Trends, treatments, and rituals actually worth your time.' },
-  { label: 'Fit Girl Find', slug: 'fitgirlfind', description: 'Product picks and gym-bag essentials, tested and approved.' },
-  { label: 'Fit Girls', slug: 'fit-girls', description: 'The trainers and women shaping Miami’s fitness culture.' },
+  { label: 'Spotted', slug: 'spotted', description: 'New studios, stores, and brand openings around Miami — first.', color: '#d95d81' },
+  { label: 'Fit Girl News', slug: 'fit-girl-news', description: 'The fitness and wellness industry stories worth knowing.', color: '#bf6a3c' },
+  { label: 'Wellness', slug: 'wellness', description: 'Trends, treatments, and rituals actually worth your time.', color: '#1f7a5c' },
+  { label: 'Fit Girl Find', slug: 'fitgirlfind', description: 'Product picks and gym-bag essentials, tested and approved.', color: '#8b5cb8' },
+  { label: 'Fit Girls', slug: 'fit-girls', description: 'The trainers and women shaping Miami’s fitness culture.', color: '#c44b6c' },
 ] as const
+
+export function categoryColor(label: string): string {
+  return categories.find((c) => c.label === label)?.color ?? 'var(--accent-deep)'
+}
 
 export type CategoryLabel = (typeof categories)[number]['label']
 

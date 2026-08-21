@@ -1,6 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro'
-import { site } from '~/lib/site'
+import { site, categoryColor } from '~/lib/site'
 
 interface Props {
   title: string
@@ -78,7 +78,7 @@ const shareText = encodeURIComponent(`${title} — ${site.name}`)
           <span aria-hidden="true">/</span>
           <span aria-current="page">{title}</span>
         </nav>
-        <span class="mini-kicker">{category}</span>
+        <span class="mini-kicker" style={`--kicker-color: ${categoryColor(category)}`}>{category}</span>
         <h1>{title}</h1>
         <p class="excerpt">{excerpt}</p>
         <div class="meta">
@@ -243,6 +243,16 @@ const shareText = encodeURIComponent(`${title} — ${site.name}`)
   .article-body :global(p) {
     margin: 0 0 1.35rem;
     color: var(--text);
+  }
+
+  .article-body :global(p:first-of-type)::first-letter {
+    font-family: var(--font-serif);
+    font-size: 3.6rem;
+    font-weight: 600;
+    line-height: 0.85;
+    float: left;
+    margin: 0.1rem 0.5rem 0 0;
+    color: var(--accent-deep);
   }
 
   .article-body :global(strong) { color: var(--text); font-weight: 700; }

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import { categories } from '~/lib/site'
+import { categories, categoryColor } from '~/lib/site'
 
 export async function getStaticPaths() {
   return categories.map((cat) => ({
@@ -26,8 +26,8 @@ const rest = sorted.slice(1)
   <section class="category-page section">
     <div class="container">
       <header class="page-header reveal">
-        <span class="eyebrow">{categoryMeta.label}</span>
-        <h1>{categoryMeta.label}</h1>
+        <span class="eyebrow" style={`--kicker-color: ${categoryColor(categoryMeta.label)}`}>{categoryMeta.label}</span>
+        <h1 style={`--cat-accent: ${categoryColor(categoryMeta.label)}`}>{categoryMeta.label}</h1>
         <p>{categoryMeta.description}</p>
       </header>
 
@@ -44,7 +44,7 @@ const rest = sorted.slice(1)
             />
           </div>
           <div class="lead-copy">
-            <span class="mini-kicker">{lead.data.kicker ?? categoryMeta.label}</span>
+            <span class="mini-kicker" style={`--kicker-color: ${categoryColor(categoryMeta.label)}`}>{lead.data.kicker ?? categoryMeta.label}</span>
             <h2>{lead.data.title}</h2>
             <p>{lead.data.excerpt}</p>
             <span class="text-link">Read the story</span>
@@ -71,7 +71,7 @@ const rest = sorted.slice(1)
                 />
               </div>
               <div class="card-copy">
-                <span class="mini-kicker">{item.data.kicker ?? categoryMeta.label}</span>
+                <span class="mini-kicker" style={`--kicker-color: ${categoryColor(categoryMeta.label)}`}>{item.data.kicker ?? categoryMeta.label}</span>
                 <h3>{item.data.title}</h3>
                 <p>{item.data.excerpt}</p>
                 <time datetime={item.data.publishedAt.toISOString()}>
@@ -101,6 +101,17 @@ const rest = sorted.slice(1)
     line-height: 0.95;
     margin: 0.5rem 0 1rem;
     font-weight: 600;
+    position: relative;
+    display: inline-block;
+  }
+  .page-header h1::after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--cat-accent, var(--accent-strong));
+    margin: 0.9rem auto 0;
   }
   .page-header > p { color: var(--muted); line-height: var(--leading-relaxed); font-size: 1.1rem; margin: 0; }
 
