@@ -115,7 +115,7 @@ const eventJsonLd = {
           <span class="mini-kicker">Reserve your spot</span>
           <h2>RSVP</h2>
           <p>You'll get a confirmation email with all the details and reminders as we get closer.</p>
-          <RSVPForm client:visible event={entry.data.title} />
+          <RSVPForm client:load event={entry.data.title} />
         </div>
         <a href="/events" class="text-link">See all events</a>
       </aside>
