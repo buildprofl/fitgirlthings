@@ -1,67 +1,42 @@
 ---
-import heroData from '~/data/hero.json'
+import { categories } from '~/lib/site'
 ---
 
 <section class="hero">
   <div class="container hero-grid">
     <div class="hero-copy reveal">
-      <span class="eyebrow">The fit-girl world, edited well</span>
-      <h1>{heroData.headline}</h1>
-      <p class="hero-lead">{heroData.leadText}</p>
+      <span class="eyebrow">Explore now — get inspired today</span>
+      <h1>Miami's fit-girl world, curated daily.</h1>
+      <p class="hero-lead">
+        Studio openings, industry news, wellness trends, product finds, and the trainers
+        shaping the city's fitness culture — all in one place, updated as it happens.
+      </p>
 
       <div class="hero-actions">
-        <a href="/#newsletter" class="button primary">Join the newsletter</a>
-        <a href="/feed" class="button secondary">Read the feed</a>
+        <a href="/#newsletter" class="button primary">Join the Insider list</a>
+        <a href="/spotted" class="button secondary">See what's Spotted</a>
       </div>
 
-      <div class="hero-proof">
-        <div>
-          <strong>1K+</strong>
-          <span>wellness-forward women reached</span>
-        </div>
-        <div>
-          <strong>Sold out</strong>
-          <span>event energy built for demand</span>
-        </div>
-        <div>
-          <strong>Digital + IRL</strong>
-          <span>media brand meets community</span>
-        </div>
+      <div class="hero-categories">
+        {categories.map((cat) => (
+          <a href={`/${cat.slug}`} class="hero-cat-pill">{cat.label}</a>
+        ))}
       </div>
     </div>
 
     <div class="hero-visual reveal">
-      <div class="hero-card main reveal-image">
-        <img
-          src={heroData.mainImage}
-          srcset={`${heroData.mainImageMobile} 375w, ${heroData.mainImage} 800w`}
-          sizes="(max-width: 820px) 100vw, 50vw"
-          alt={heroData.mainImageAlt}
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-          width="800"
-          height="994"
-        />
-        <div class="overlay-badge">{heroData.mainImageBadge}</div>
-      </div>
-      <div class="hero-stack">
-        <div class="hero-card small reveal-image">
-          <img
-            src={heroData.secondaryImage}
-            srcset={`${heroData.secondaryImageMobile} 300w, ${heroData.secondaryImage} 500w`}
-            sizes="(max-width: 820px) 100vw, 35vw"
-            alt={heroData.secondaryImageAlt}
-            loading="lazy"
-            decoding="async"
-            width="500"
-            height="525"
-          />
-        </div>
-        <div class="hero-note">
-          <span class="eyebrow">Here's the tea</span>
-          <p>What is worth it. What is not. What the fit girls are actually doing.</p>
-        </div>
+      <img
+        src="/uploads/migrated/logo.webp"
+        alt="Fit Girl Things"
+        class="hero-logo"
+        loading="eager"
+        decoding="async"
+        width="649"
+        height="324"
+      />
+      <div class="hero-note">
+        <span class="eyebrow">Here's the tea</span>
+        <p>What's worth it. What's not. What's actually opening, closing, and changing across Miami's fitness scene.</p>
       </div>
     </div>
   </div>
@@ -126,101 +101,59 @@ import heroData from '~/data/hero.json'
     display: flex;
     gap: 0.85rem;
     flex-wrap: wrap;
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
   }
 
-  .hero-proof {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.8rem;
+  .hero-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
   }
 
-  .hero-proof div {
-    padding: 1rem;
-    border-radius: var(--radius-md);
+  .hero-cat-pill {
+    padding: 0.5rem 0.95rem;
+    border-radius: 999px;
     border: 1px solid var(--line);
-    background: color-mix(in oklab, var(--surface) 82%, transparent);
-    box-shadow: var(--shadow-soft);
-    transition: transform var(--dur-fast) var(--ease-out);
+    background: color-mix(in oklab, var(--surface) 70%, transparent);
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast);
   }
-
-  .hero-proof div:hover { transform: translateY(-2px); }
-
-  .hero-proof strong {
-    display: block;
-    font-size: 1.1rem;
-    margin-bottom: 0.35rem;
-    font-family: var(--font-serif);
-    letter-spacing: -0.01em;
-  }
-
-  .hero-proof span {
-    color: var(--muted);
-    font-size: 0.9rem;
-    line-height: 1.45;
+  .hero-cat-pill:hover {
+    border-color: var(--accent-strong);
+    background: var(--surface);
+    transform: translateY(-1px);
   }
 
   .hero-visual {
-    display: grid;
-    grid-template-columns: 1.2fr 0.82fr;
-    gap: 1rem;
-    align-items: stretch;
-  }
-
-  .hero-card {
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    position: relative;
-    background: var(--surface);
-    transition: transform var(--dur-med) var(--ease-out);
-  }
-
-  .hero-card:hover { transform: translateY(-3px); }
-
-  .hero-card.main img {
-    aspect-ratio: 0.9 / 1.12;
-    object-fit: cover;
-    width: 100%;
-  }
-
-  .hero-card.small img {
-    aspect-ratio: 0.95 / 1;
-    object-fit: cover;
-    width: 100%;
-  }
-
-  .overlay-badge {
-    position: absolute;
-    left: 1rem;
-    bottom: 1rem;
-    padding: 0.65rem 0.9rem;
-    background: color-mix(in oklab, var(--surface) 88%, transparent);
-    color: var(--text);
-    backdrop-filter: blur(8px);
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 700;
-  }
-
-  .hero-stack {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .hero-logo {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    filter: drop-shadow(0 20px 45px rgba(115, 61, 79, 0.12));
   }
 
   .hero-note {
-    padding: 1.25rem;
+    padding: 1.25rem 1.5rem;
     border-radius: var(--radius-lg);
     background: linear-gradient(180deg, var(--surface), var(--surface-soft));
     box-shadow: var(--shadow-soft);
     border: 1px solid var(--line);
+    text-align: center;
+    max-width: 420px;
   }
 
   .hero-note p {
     margin: 0.65rem 0 0;
     color: var(--muted);
-    line-height: var(--leading-normal);
+    line-height: 1.6;
   }
 
   @media (max-width: 1080px) {
@@ -231,8 +164,6 @@ import heroData from '~/data/hero.json'
   @media (max-width: 820px) {
     .hero { padding-top: 2rem; }
     .hero h1 { font-size: clamp(2.4rem, 12vw, 4.6rem); }
-    .hero-proof { grid-template-columns: 1fr; gap: 0.8rem; }
-    .hero-visual { grid-template-columns: 1fr; }
     .hero-actions { flex-direction: column; }
     .hero-actions .button { width: 100%; }
   }

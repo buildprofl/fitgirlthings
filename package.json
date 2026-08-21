@@ -11,7 +11,6 @@
     "astro": "astro",
     "new:landing": "node scripts/new-landing.mjs",
     "new:article": "node scripts/new-article.mjs",
-    "new:event": "node scripts/new-event.mjs",
     "qa": "playwright test",
     "qa:ui": "playwright test --ui",
     "qa:install": "playwright install chromium"

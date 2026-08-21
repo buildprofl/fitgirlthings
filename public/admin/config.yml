@@ -12,9 +12,9 @@ logo_url: /admin/logo.svg
 publish_mode: editorial_workflow
 
 collections:
-  # --- Articles (MDX) ---
+  # --- Articles ---
   - name: articles
-    label: "Articles (The Feed)"
+    label: "Articles"
     label_singular: "Article"
     folder: "src/content/articles"
     create: true
@@ -31,8 +31,9 @@ collections:
       - label: "Category"
         name: category
         widget: select
-        options: [Wellness, Culture, Fitness, Events, Beauty, Found]
-      - { label: "Kicker (optional)", name: kicker, widget: string, required: false }
+        options: ["Spotted", "Fit Girl News", "Wellness", "Fit Girl Find", "Fit Girls"]
+        hint: "Determines the article's URL: /spotted/…, /fit-girl-news/…, /wellness/…, /fitgirlfind/…, /fit-girls/…"
+      - { label: "Kicker (optional)", name: kicker, widget: string, required: false, hint: "Shown above the headline, e.g. 'Spotted', 'Fit Girl News'" }
       - { label: "Cover Image", name: image, widget: image }
       - { label: "Cover Image (Mobile, optional)", name: imageMobile, widget: image, required: false }
       - { label: "Image Alt Text", name: imageAlt, widget: string, required: false }
@@ -43,33 +44,6 @@ collections:
       - { label: "Tags", name: tags, widget: list, required: false }
       - { label: "Draft?", name: draft, widget: boolean, default: true, hint: "When true, article does not appear on the site." }
       - { label: "Body", name: body, widget: markdown }
-
-  # --- Events ---
-  - name: events
-    label: "Events"
-    label_singular: "Event"
-    folder: "src/content/events"
-    create: true
-    slug: "{{slug}}"
-    extension: md
-    format: frontmatter
-    identifier_field: title
-    summary: "{{title}} · {{dateLabelMonth}} {{dateLabelDay}}"
-    fields:
-      - { label: "Title", name: title, widget: string }
-      - { label: "Place", name: place, widget: string }
-      - { label: "Summary", name: summary, widget: text }
-      - { label: "Date", name: date, widget: datetime, format: "YYYY-MM-DD" }
-      - { label: "Date Label — Month", name: dateLabelMonth, widget: string, hint: "e.g. 'May', 'Oct'" }
-      - { label: "Date Label — Day", name: dateLabelDay, widget: string, hint: "e.g. '22', '11'" }
-      - { label: "Image", name: image, widget: image, required: false }
-      - { label: "Image Alt", name: imageAlt, widget: string, required: false }
-      - { label: "Capacity", name: capacity, widget: number, required: false, min: 1, value_type: int }
-      - { label: "Price", name: price, widget: string, required: false, hint: "e.g. 'Free', '$45', 'Invitation-only'" }
-      - { label: "Hosted By", name: hostedBy, widget: string, default: "Fit Girl Things" }
-      - { label: "Highlights", name: highlights, widget: list, required: false }
-      - { label: "Draft?", name: draft, widget: boolean, default: false }
-      - { label: "Body", name: body, widget: markdown, required: false }
 
   # --- Landing Pages (block composition) ---
   - name: landing

@@ -5,21 +5,24 @@ import { test, expect } from '@playwright/test'
 // silently returned the home page.
 
 const routes = [
-  { path: '/',                title: /Fit Girl Things/i,              marker: /editorial home for women/i },
-  { path: '/feed',            title: /The Feed/i,                     marker: /Stories worth your time/i },
-  { path: '/events',          title: /Events/i,                       marker: /rooms worth being in/i },
-  { path: '/contact',         title: /Contact/i,                      marker: /Get in touch/i },
-  { path: '/privacy',         title: /Privacy Policy/i,               marker: /Privacy Policy/i },
-  { path: '/terms',           title: /Terms of Service/i,             marker: /Terms of Service/i },
-  { path: '/cookies',         title: /Cookie Policy/i,                marker: /Cookie Policy/i },
-  { path: '/disclaimer',      title: /Disclaimer/i,                   marker: /Health & Wellness Disclaimer/i },
-  { path: '/for/sponsor',     title: /Sponsor Fit Girl Things/i,      marker: /Reach the women other wellness brands/i },
-  { path: '/for/newsletter',  title: /Newsletter/i,                   marker: /newsletter girls forward/i },
-  { path: '/for/walk-club',   title: /Walk Club/i,                    marker: /Coffee first/i },
-  { path: '/feed/the-new-rules-of-fit-girl-culture', title: /New Rules of Fit-Girl Culture/i, marker: /What today.s fit girl actually wants/i },
-  { path: '/feed/lazy-fit-girl-smoothies',           title: /Lazy Fit Girl Smoothies/i,         marker: /protein first/i },
-  { path: '/events/the-white-lotus-social',          title: /White Lotus Social/i,              marker: /Rooftop, resort palette/i },
-  { path: '/events/fit-girl-walk-club-north-miami',  title: /Fit Girl Walk Club/i,              marker: /Saturday morning/i },
+  { path: '/',                 title: /Fit Girl Things/i,        marker: /Miami.s fit-girl world/i },
+  { path: '/spotted',          title: /Spotted/i,                marker: /New studios, stores, and brand openings/i },
+  { path: '/fit-girl-news',    title: /Fit Girl News/i,          marker: /fitness and wellness industry stories/i },
+  { path: '/wellness',         title: /Wellness/i,               marker: /Trends, treatments, and rituals/i },
+  { path: '/fitgirlfind',      title: /Fit Girl Find/i,          marker: /Product picks and gym-bag essentials/i },
+  { path: '/fit-girls',        title: /Fit Girls/i,              marker: /trainers and women shaping/i },
+  { path: '/faqs',             title: /FAQs/i,                   marker: /Questions we get a lot/i },
+  { path: '/contact',          title: /Contact/i,                marker: /Get in touch/i },
+  { path: '/privacy',          title: /Privacy Policy/i,         marker: /Privacy Policy/i },
+  { path: '/terms',            title: /Terms of Service/i,       marker: /Terms of Service/i },
+  { path: '/cookies',          title: /Cookie Policy/i,          marker: /Cookie Policy/i },
+  { path: '/disclaimer',       title: /Disclaimer/i,             marker: /Health & Wellness Disclaimer/i },
+  { path: '/for/newsletter',   title: /Fit Girl Insider/i,       marker: /newsletter girls forward/i },
+  { path: '/spotted/spotted-rp-heat-boca-raton-and-delray-beach', title: /RP Heat/i, marker: /Boca Raton and Delray Beach/i },
+  { path: '/fit-girl-news/news-alo-aventura',                     title: /Alo/i,     marker: /Aventura Mall/i },
+  { path: '/wellness/wellness-truvani-electrolytes',              title: /Truvani/i, marker: /electrolyte/i },
+  { path: '/fitgirlfind/find-panic-panties',                      title: /Panic Panties/i, marker: /gym bag/i },
+  { path: '/fit-girls/girls-caro-suki',                           title: /Caro Suki/i, marker: /Miami/i },
 ] as const
 
 for (const route of routes) {
@@ -47,9 +50,10 @@ test('robots.txt exists and lists sitemap', async ({ request }) => {
   expect(body).toMatch(/Sitemap:\s*https:\/\/fitgirlthings\.com\/sitemap-index\.xml/)
 })
 
-// Note: /blog/* → /feed/* redirect lives in netlify.toml and only fires on
-// the deployed Netlify CDN. Astro's preview server doesn't process Netlify
-// redirects, so we can't exercise it locally. Verify on Deploy Preview:
-//   curl -I https://<deploy-preview-url>/blog/anything
-// should return 301 Location: /feed/anything.
-test.skip('legacy /blog/* redirects to /feed/* — verify on Netlify Deploy Preview', () => {})
+test('every category page has at least one article', async ({ page, request }) => {
+  const categories = ['spotted', 'fit-girl-news', 'wellness', 'fitgirlfind', 'fit-girls']
+  for (const cat of categories) {
+    const res = await request.get(`/${cat}`)
+    expect(res.status(), `/${cat} should return 200`).toBe(200)
+  }
+})

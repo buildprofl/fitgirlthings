@@ -4,7 +4,7 @@ import NewsletterForm from '~/components/react/NewsletterForm.jsx'
 import { site } from '~/lib/site'
 ---
 
-<BaseLayout title="Contact" description="Reach Fit Girl Things — for readers, event RSVPs, sponsor asks, press, and partnerships.">
+<BaseLayout title="Contact" description="Reach Fit Girl Things — for readers, studios, brands, event hosts, and press.">
   <section class="contact-page section">
     <div class="container contact-grid">
       <div class="reveal">
@@ -25,12 +25,12 @@ import { site } from '~/lib/site'
             <a href={site.instagram} target="_blank" rel="noreferrer">{site.handle} on Instagram</a>
           </div>
           <div class="contact-box">
-            <h3>Partnerships & Sponsors</h3>
-            <p>Send with "PARTNERSHIP" in the subject line for fastest routing. Or <a href="/for/sponsor">see the sponsor deck</a>.</p>
+            <h3>Studios & Brands</h3>
+            <p>Want to get featured? Send with "FEATURE" in the subject line and tell us what makes you worth spotting.</p>
           </div>
           <div class="contact-box">
-            <h3>Event Inquiries</h3>
-            <p>Send with "EVENT INQUIRY" in the subject line — includes speaker asks, hosting your event with us, or venue introductions.</p>
+            <h3>Host an Event</h3>
+            <p>Send with "EVENT" in the subject line — tell us your concept, timing, and venue.</p>
           </div>
           <div class="contact-box">
             <h3>Press & Media</h3>
@@ -46,12 +46,12 @@ import { site } from '~/lib/site'
       <aside class="side reveal">
         <div class="side-card">
           <h3>Response time</h3>
-          <p>Within 2 business days. During event weeks, it may be a little longer — thanks for the patience.</p>
+          <p>Within 2 business days. Thanks for the patience.</p>
         </div>
         <div class="side-card newsletter-card">
           <span class="mini-kicker">Meanwhile</span>
-          <h3>Join the newsletter.</h3>
-          <p>Weekly wellness edits, event drops, and product finds — no spam, ever.</p>
+          <h3>Join Fit Girl Insider.</h3>
+          <p>Studio openings, industry news, and product finds — before anyone else sees it.</p>
           <NewsletterForm client:load compact source="contact-page" />
         </div>
       </aside>

@@ -2,11 +2,10 @@
 import SectionHeader from '~/components/ui/SectionHeader.astro'
 
 const points = [
-  'A premium, wellness-forward female audience',
-  'Editorial storytelling before and after the event',
-  'High-touch in-person activations with visual payoff',
-  'Brand-aligned placements, goodie bags, and recaps',
-  'A media + events platform, not just a one-off gathering',
+  'Studios and brands: get featured — reach out and tell us what makes you worth spotting',
+  'Have news worth sharing? Send it our way and we’ll take a look',
+  'Want to host an event under the Fit Girl Things name? Let’s talk',
+  'Product to get in front of Miami’s fitness crowd? We want to see it',
 ]
 ---
 
@@ -14,9 +13,9 @@ const points = [
   <div class="container partners-grid">
     <div>
       <SectionHeader
-        eyebrow="Partner with us"
-        title="A better platform for corporate wellness, sponsorships, and beautiful exposure."
-        text="This brand monetizes through newsletter reach, branded activations, event production, and curated sponsor visibility."
+        eyebrow="Work with us"
+        title="Get featured, share news, or bring us your event."
+        text="Fit Girl Things covers the studios, brands, and people shaping Miami's fitness scene — here's how to get on our radar."
       />
       <ul class="partner-list reveal">
         {points.map((p) => (
@@ -29,15 +28,14 @@ const points = [
     </div>
 
     <aside class="partner-panel reveal">
-      <span class="mini-kicker">Best fit clients</span>
-      <h3>Brands, wellness operators, hospitality groups, and corporate event buyers</h3>
+      <span class="mini-kicker">Get in touch</span>
+      <h3>Studios, brands, trainers, and event hosts</h3>
       <p>
-        Position Fit Girl Things as both a media brand and an activation partner. More
-        exposure, more event attendance, more corporate clients hiring the brand to create
-        on-message wellness experiences.
+        Whether you're opening a studio, launching a product, or planning an event you'd like
+        to bring under the Fit Girl Things name — reach out and tell us more.
       </p>
-      <a href="/contact" class="button primary full">Inquire about partnerships</a>
-      <a href="/for/sponsor" class="text-link" style="margin-top:1rem;display:inline-flex">See our sponsor deck</a>
+      <a href="/contact" class="button primary full">Reach out</a>
+      <a href="/faqs" class="text-link" style="margin-top:1rem;display:inline-flex">Read our FAQs</a>
     </aside>
   </div>
 </section>

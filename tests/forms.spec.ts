@@ -53,43 +53,9 @@ test('newsletter form: valid email POSTs with correct payload', async ({ page })
   expect(submittedBody!).toContain('email=reader%40example.com')
 })
 
-test('event RSVP form: validates required fields', async ({ page }) => {
-  await page.goto('/events/fit-girl-walk-club-north-miami')
-
-  const nameInput = page.locator('input[name="name"]').first()
-  await nameInput.waitFor({ state: 'visible' })
-
-  await page.locator('button[type="submit"]', { hasText: /reserve/i }).click()
-  await expect(page.locator('.form-error').first()).toContainText(/name/i)
-})
-
-test('event RSVP form: happy path submits with event name', async ({ page }) => {
-  await page.goto('/events/fit-girl-walk-club-north-miami')
-
-  let submittedBody: string | null = null
-  await page.route('**/', async (route, req) => {
-    if (req.method() === 'POST') {
-      submittedBody = req.postData()
-      await route.fulfill({ status: 200, body: 'ok' })
-      return
-    }
-    await route.continue()
-  })
-
-  await page.locator('input[name="name"]').first().waitFor({ state: 'visible' })
-  await page.locator('input[name="name"]').first().fill('Test Attendee')
-  await page.locator('input[name="email"]').first().fill('attendee@example.com')
-  await page.locator('button[type="submit"]', { hasText: /reserve/i }).click()
-
-  await expect(page.locator('.rsvp-success')).toBeVisible({ timeout: 10_000 })
-  expect(submittedBody).toBeTruthy()
-  expect(submittedBody!).toContain('form-name=rsvp')
-  expect(submittedBody!).toContain('event=Fit')
-})
-
 test('Netlify Forms hidden static forms are present in HTML for detection', async ({ page }) => {
   await page.goto('/')
   const forms = await page.locator('form[data-netlify="true"][hidden]').count()
-  // BaseLayout ships 3 hidden static forms (newsletter, rsvp, partner-inquiry)
-  expect(forms).toBeGreaterThanOrEqual(3)
+  // BaseLayout ships 2 hidden static forms (newsletter, partner-inquiry)
+  expect(forms).toBeGreaterThanOrEqual(2)
 })
